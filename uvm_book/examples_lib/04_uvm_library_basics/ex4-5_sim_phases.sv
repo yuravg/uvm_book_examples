@@ -47,7 +47,6 @@ package my_pkg;
 
     // UVM build_phase() method
     function void build_phase(uvm_phase phase);
-      super.build_phase(phase);
       `uvm_info("UVC", "build_phase: Executing.", UVM_LOW)
       master = master_comp::type_id::create("master", this);
       slave  = slave_comp::type_id::create("slave", this);
@@ -78,12 +77,10 @@ package my_pkg;
 
     // UVM build_phase() method
     function void build_phase(uvm_phase phase);
-      super.build_phase(phase);
       my_uvc = simple_if_comp::type_id::create("my_uvc", this);
     endfunction : build_phase
 
     function void end_of_elaboration_phase(uvm_phase phase);
-      super.end_of_elaboration_phase(phase);
       `uvm_info("TBENCH", {"end_of_elaboration_phase(), Hierarchy:\n",
                            this.sprint()}, UVM_LOW)
     endfunction : end_of_elaboration_phase
