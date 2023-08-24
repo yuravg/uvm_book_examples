@@ -85,10 +85,10 @@ module test;
     // Start UVM Phases
     run_test();
   end
+
 endmodule : test
 
 // OUTPUT:
-// # UVM_INFO @ 0: reporter [RNTST] Running test ...
 // # UVM_INFO ex4-7_config.sv(63) @ 0: my_uvc [UVC] run_phase: Hierarchy:
 // # --------------------------------------------
 // # Name           Type            Size  Value

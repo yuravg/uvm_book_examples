@@ -84,8 +84,6 @@ module test;
 endmodule : test
 
 // OUTPUT:
-// # UVM_INFO @ 0: reporter [RNTST] Running test ...
-// # UVM_INFO ex4-6_default_config.sv(63) @ 0: my_uvc [UVC] run_phase: Hierarchy:
 // # --------------------------------------------
 // # Name           Type            Size  Value
 // # --------------------------------------------
@@ -103,7 +101,7 @@ endmodule : test
 // #   num_slaves   integral        32    'h5
 // # --------------------------------------------
 // #
-// # UVM_INFO ex4-6_default_config.sv(64) @ 0: my_uvc [UVC] bus_uvc has 3 master(s) and 5 slave(s)
+// # UVM_INFO ex4-6_default_config.sv(63) @ 0: my_uvc [UVC] bus_uvc has 3 master(s) and 5 slave(s)
 // # UVM_INFO ex4-6_default_config.sv(31) @ 0: my_uvc.slave[4] [SLAVE] run_phase: Executing.
 // # UVM_INFO ex4-6_default_config.sv(31) @ 0: my_uvc.slave[3] [SLAVE] run_phase: Executing.
 // # UVM_INFO ex4-6_default_config.sv(31) @ 0: my_uvc.slave[2] [SLAVE] run_phase: Executing.

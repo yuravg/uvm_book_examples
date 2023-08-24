@@ -10,7 +10,6 @@ package my_pkg;
 
   class master_comp extends uvm_component;
     `uvm_component_utils(master_comp)
-
     function new(string name, uvm_component parent);
       super.new(name, parent);
     endfunction : new
@@ -23,7 +22,6 @@ package my_pkg;
 
   class slave_comp extends uvm_component;
     `uvm_component_utils(slave_comp)
-
     function new(string name, uvm_component parent);
       super.new(name, parent);
     endfunction : new
@@ -112,9 +110,8 @@ module test;
 endmodule : test
 
 // OUTPUT:
-// # UVM_INFO @ 0: reporter [RNTST] Running test ...
-// # UVM_INFO ex4-5_sim_phases.sv(51) @ 0: testbench.my_uvc [UVC] build_phase: Executing.
-// # UVM_INFO ex4-5_sim_phases.sv(87) @ 0: testbench [TBENCH] end_of_elaboration_phase(), Hierarchy:
+// # UVM_INFO ex4-5_sim_phases.sv(49) @ 0: testbench.my_uvc [UVC] build_phase: Executing.
+// # UVM_INFO ex4-5_sim_phases.sv(85) @ 0: testbench [TBENCH] end_of_elaboration_phase(), Hierarchy:
 // # ---------------------------------------
 // # Name        Type            Size  Value
 // # ---------------------------------------
@@ -124,15 +121,15 @@ endmodule : test
 // #     slave   slave_comp      -     @385
 // # ---------------------------------------
 // #
-// # UVM_INFO ex4-5_sim_phases.sv(93) @ 0: testbench [TBENCH] run_phase: Executing.
-// # UVM_INFO ex4-5_sim_phases.sv(60) @ 0: testbench.my_uvc [UVC] run_phase: Executing.
-// # UVM_INFO ex4-5_sim_phases.sv(61) @ 0: testbench.my_uvc [UVC] get_parent(): testbench
-// # UVM_INFO ex4-5_sim_phases.sv(63) @ 0: testbench.my_uvc [UVC] get_child(master): testbench.my_uvc.master
-// # UVM_INFO ex4-5_sim_phases.sv(64) @ 0: testbench.my_uvc [UVC] get_child(master): master
-// # UVM_INFO ex4-5_sim_phases.sv(66) @ 0: testbench.my_uvc [UVC] get_child(slave): testbench.my_uvc.slave
-// # UVM_INFO ex4-5_sim_phases.sv(67) @ 0: testbench.my_uvc [UVC] get_child(slave): slave
-// # UVM_INFO ex4-5_sim_phases.sv(33) @ 0: testbench.my_uvc.slave [SLAVE] run_phase: Executing.
-// # UVM_INFO ex4-5_sim_phases.sv(20) @ 0: testbench.my_uvc.master [MASTER] run_phase: Executing.
+// # UVM_INFO ex4-5_sim_phases.sv(91) @ 0: testbench [TBENCH] run_phase: Executing.
+// # UVM_INFO ex4-5_sim_phases.sv(58) @ 0: testbench.my_uvc [UVC] run_phase: Executing.
+// # UVM_INFO ex4-5_sim_phases.sv(59) @ 0: testbench.my_uvc [UVC] get_parent(): testbench
+// # UVM_INFO ex4-5_sim_phases.sv(61) @ 0: testbench.my_uvc [UVC] get_child(master): testbench.my_uvc.master
+// # UVM_INFO ex4-5_sim_phases.sv(62) @ 0: testbench.my_uvc [UVC] get_child(master): master
+// # UVM_INFO ex4-5_sim_phases.sv(64) @ 0: testbench.my_uvc [UVC] get_child(slave): testbench.my_uvc.slave
+// # UVM_INFO ex4-5_sim_phases.sv(65) @ 0: testbench.my_uvc [UVC] get_child(slave): slave
+// # UVM_INFO ex4-5_sim_phases.sv(31) @ 0: testbench.my_uvc.slave [SLAVE] run_phase: Executing.
+// # UVM_INFO ex4-5_sim_phases.sv(19) @ 0: testbench.my_uvc.master [MASTER] run_phase: Executing.
 // # UVM_INFO verilog_src/uvm-1.2/src/base/uvm_report_server.svh(847) @ 0: reporter [UVM/REPORT/SERVER]
 // # --- UVM Report Summary ---
 // #
