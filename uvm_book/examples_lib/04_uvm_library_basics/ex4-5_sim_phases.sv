@@ -58,11 +58,13 @@ package my_pkg;
       uvm_component child, parent;
       parent = get_parent();
       `uvm_info("UVC", "run_phase: Executing.", UVM_LOW)
-      `uvm_info("UVC", {"parent: ", parent.get_full_name()}, UVM_LOW)
+      `uvm_info("UVC", {"get_parent(): ", parent.get_full_name()}, UVM_LOW)
       child = get_child("master");
-      `uvm_info("UVC", {"child: ", child.get_name()}, UVM_LOW)
+      `uvm_info("UVC", {"get_child(master): ", child.get_full_name()}, UVM_LOW)
+      `uvm_info("UVC", {"get_child(master): ", child.get_name()}, UVM_LOW)
       child = get_child("slave");
-      `uvm_info("UVC", {"child: ", child.get_name()}, UVM_LOW)
+      `uvm_info("UVC", {"get_child(slave): ", child.get_full_name()}, UVM_LOW)
+      `uvm_info("UVC", {"get_child(slave): ", child.get_name()}, UVM_LOW)
     endtask : run_phase
   endclass : simple_if_comp
 
@@ -82,7 +84,7 @@ package my_pkg;
 
     function void end_of_elaboration_phase(uvm_phase phase);
       super.end_of_elaboration_phase(phase);
-      `uvm_info("TBENCH", {"end_of_elaboration_phase: Hierarchy\n",
+      `uvm_info("TBENCH", {"end_of_elaboration_phase(), Hierarchy:\n",
                            this.sprint()}, UVM_LOW)
     endfunction : end_of_elaboration_phase
 
@@ -112,7 +114,7 @@ endmodule : test
 // OUTPUT:
 // # UVM_INFO @ 0: reporter [RNTST] Running test ...
 // # UVM_INFO ex4-5_sim_phases.sv(51) @ 0: testbench.my_uvc [UVC] build_phase: Executing.
-// # UVM_INFO ex4-5_sim_phases.sv(85) @ 0: testbench [TBENCH] end_of_elaboration_phase: Hierarchy
+// # UVM_INFO ex4-5_sim_phases.sv(87) @ 0: testbench [TBENCH] end_of_elaboration_phase(), Hierarchy:
 // # ---------------------------------------
 // # Name        Type            Size  Value
 // # ---------------------------------------
@@ -122,18 +124,20 @@ endmodule : test
 // #     slave   slave_comp      -     @385
 // # ---------------------------------------
 // #
-// # UVM_INFO ex4-5_sim_phases.sv(91) @ 0: testbench [TBENCH] run_phase: Executing.
+// # UVM_INFO ex4-5_sim_phases.sv(93) @ 0: testbench [TBENCH] run_phase: Executing.
 // # UVM_INFO ex4-5_sim_phases.sv(60) @ 0: testbench.my_uvc [UVC] run_phase: Executing.
-// # UVM_INFO ex4-5_sim_phases.sv(61) @ 0: testbench.my_uvc [UVC] parent: testbench
-// # UVM_INFO ex4-5_sim_phases.sv(63) @ 0: testbench.my_uvc [UVC] child: master
-// # UVM_INFO ex4-5_sim_phases.sv(65) @ 0: testbench.my_uvc [UVC] child: slave
+// # UVM_INFO ex4-5_sim_phases.sv(61) @ 0: testbench.my_uvc [UVC] get_parent(): testbench
+// # UVM_INFO ex4-5_sim_phases.sv(63) @ 0: testbench.my_uvc [UVC] get_child(master): testbench.my_uvc.master
+// # UVM_INFO ex4-5_sim_phases.sv(64) @ 0: testbench.my_uvc [UVC] get_child(master): master
+// # UVM_INFO ex4-5_sim_phases.sv(66) @ 0: testbench.my_uvc [UVC] get_child(slave): testbench.my_uvc.slave
+// # UVM_INFO ex4-5_sim_phases.sv(67) @ 0: testbench.my_uvc [UVC] get_child(slave): slave
 // # UVM_INFO ex4-5_sim_phases.sv(33) @ 0: testbench.my_uvc.slave [SLAVE] run_phase: Executing.
 // # UVM_INFO ex4-5_sim_phases.sv(20) @ 0: testbench.my_uvc.master [MASTER] run_phase: Executing.
 // # UVM_INFO verilog_src/uvm-1.2/src/base/uvm_report_server.svh(847) @ 0: reporter [UVM/REPORT/SERVER]
 // # --- UVM Report Summary ---
 // #
 // # ** Report counts by severity
-// # UVM_INFO :   13
+// # UVM_INFO :   15
 // # UVM_WARNING :    0
 // # UVM_ERROR :    0
 // # UVM_FATAL :    0
@@ -143,5 +147,5 @@ endmodule : test
 // # [RNTST]     1
 // # [SLAVE]     1
 // # [TBENCH]     2
-// # [UVC]     5
+// # [UVC]     7
 // # [UVM/RELNOTES]     1
