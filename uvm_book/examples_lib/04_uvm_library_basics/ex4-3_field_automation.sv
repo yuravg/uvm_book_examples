@@ -1,17 +1,17 @@
 /****************************************************************
-  Example 4-3: uvm_object Fields Automation
+ Example 4-3: uvm_object Fields Automation
 
-  To run:   %  irun -uvm ex4-3_field_automation.sv
-  OR:       %  irun -uvmhome $UVM_HOME ex4-3_field_automation.sv
+ To run:   %  irun -uvm ex4-3_field_automation.sv
+ OR:       %  irun -uvmhome $UVM_HOME ex4-3_field_automation.sv
 
-  Developers    : Kathleen Meade
-  Created       : Dec 6, 2011
-  Description   : This file declares a the data item for a simple
-                  packet protocol.
-  Notes         :
-----------------------------------------------------------------
-  Copyright Cadence Design Systems (c)2011
-****************************************************************/
+ Developers    : Kathleen Meade
+ Created       : Dec 6, 2011
+ Description   : This file declares a the data item for a simple
+ packet protocol.
+ Notes         :
+ ----------------------------------------------------------------
+ Copyright Cadence Design Systems (c)2011
+ ****************************************************************/
 import uvm_pkg::*;
 `include "uvm_macros.svh"
 
@@ -29,11 +29,11 @@ class packet_header extends uvm_object;
   `uvm_object_utils_end
   // Constructor - required syntax for UVM automation and utilities
   function new (string name="packet_header");
-     super.new(name);
-  endfunction
-endclass : packet_header 
+    super.new(name);
+  endfunction : new
+endclass : packet_header
 
-typedef enum bit { BAD_PARITY, GOOD_PARITY } parity_e;
+typedef enum bit {BAD_PARITY, GOOD_PARITY} parity_e;
 
 //------------------------------------------------------------
 // CLASS: simple_packet
@@ -50,23 +50,23 @@ class simple_packet extends uvm_object;
   rand int packet_delay;
 
   // Default Constraints
-  constraint c_default_length { header.length > 0; header.length < 64; }
-  constraint c_payload_size   { header.length == payload.size(); }
-  constraint c_packet_delay   { packet_delay inside {[0:10]}; }
+  constraint c_default_length {header.length > 0; header.length < 64;}
+  constraint c_payload_size   {header.length == payload.size();}
+  constraint c_packet_delay   {packet_delay inside {[0:10]};}
 
   // UVM macros for built-in automation - These declarations enable automation
   // of the data_item fields and implement create() and get_type_name()
   `uvm_object_utils_begin(simple_packet)
     `uvm_field_object(header, UVM_DEFAULT)
     `uvm_field_array_int(payload, UVM_DEFAULT)
-    `uvm_field_int(parity,      UVM_DEFAULT)
+    `uvm_field_int(parity, UVM_DEFAULT)
     `uvm_field_enum(parity_e, parity_type, UVM_DEFAULT)
     `uvm_field_int(packet_delay, UVM_DEFAULT | UVM_DEC | UVM_NOCOMPARE)
   `uvm_object_utils_end
 
   function new (string name = "simple_packet");
     super.new(name);
-    header = packet_header::type_id::create("header"); // allocation 
+    header = packet_header::type_id::create("header"); // allocation
   endfunction : new
 
   // This method calculates the parity over the header and payload
@@ -79,30 +79,56 @@ class simple_packet extends uvm_object;
   // post_randomize() - calculates parity
   function void post_randomize();
     if (parity_type == GOOD_PARITY)
-         parity = calc_parity();
+      parity = calc_parity();
     else do
       parity = $urandom;
     while( parity == calc_parity());
   endfunction : post_randomize
-
 endclass : simple_packet
 
 module test;
 
-simple_packet packet;
-//uvm_table_printer printer;
+  simple_packet packet;
+  //uvm_table_printer printer;
 
-initial begin
-  //uvm_default_printer = uvm_default_table_printer;
-  //printer = new();
-  packet = new("packet");
-  //uvm_default_printer.knobs.begin_elements = -1;
-  //printer.knobs.begin_elements = -1;
-  //printer.knobs.end_elements = 2;
-  repeat (3) begin
-    void'(packet.randomize());
-    //packet.print(printer);
-    packet.print();
+  initial begin
+    //uvm_default_printer = uvm_default_table_printer;
+    //printer = new();
+    packet = new("packet");
+    //uvm_default_printer.knobs.begin_elements = -1;
+    //printer.knobs.begin_elements = -1;
+    //printer.knobs.end_elements = 2;
+    repeat (3) begin
+      void'(packet.randomize());
+      //packet.print(printer);
+      packet.print();
+    end
   end
-end
 endmodule : test
+
+// OUTPUT:
+// # -----------------------------------------------
+// # Name            Type           Size  Value
+// # -----------------------------------------------
+// # packet          simple_packet  -     @355
+// #   header        packet_header  -     @356
+// #     length      integral       6     'h19
+// #     addr        integral       2     'h0
+// #   payload       da(integral)   25    -
+// #     [0]         integral       8     'h77
+// #     [1]         integral       8     'hd6
+// #     [2]         integral       8     'h46
+// #     [3]         integral       8     'h4b
+// #     [4]         integral       8     'ha1
+// #     ...         ...            ...   ...
+// #     [20]        integral       8     'h13
+// #     [21]        integral       8     'hc9
+// #     [22]        integral       8     'ha4
+// #     [23]        integral       8     'h16
+// #     [24]        integral       8     'h6b
+// #   parity        integral       8     'h66
+// #   parity_type   parity_e       1     BAD_PARITY
+// #   packet_delay  integral       32    'd1
+// # -----------------------------------------------
+// ...
+// (the stdout is reduced)

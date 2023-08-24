@@ -1,11 +1,11 @@
 /****************************************************************
-  File: apb_transfer.sv
-****************************************************************/
+ File: apb_transfer.sv
+ ****************************************************************/
 //----------------------------------------------------------------------------
 // CLASS: apb_transfer
 //----------------------------------------------------------------------------
 typedef enum bit {APB_READ, APB_WRITE} apb_direction_enum;
-class apb_transfer extends uvm_sequence_item;                                  
+class apb_transfer extends uvm_sequence_item;
 
   rand bit [31:0]           addr;
   rand bit [31:0]           data;
@@ -14,8 +14,8 @@ class apb_transfer extends uvm_sequence_item;
   rand int unsigned         transmit_delay;
 
   // Constraint
-  constraint c_transmit_delay { transmit_delay inside {[0:15]}; }
-   
+  constraint c_transmit_delay {transmit_delay inside {[0:15]};}
+
   // UVM automation macros for data items
   `uvm_object_utils_begin(apb_transfer)
     `uvm_field_int(addr, UVM_DEFAULT)
@@ -27,6 +27,6 @@ class apb_transfer extends uvm_sequence_item;
   // Constructor - required UVM syntax
   function new (string name = "apb_transfer");
     super.new(name);
-  endfunction
+  endfunction : new
 
 endclass : apb_transfer
