@@ -35,8 +35,8 @@ package my_pkg;
   class interface_comp extends uvm_component;
     master_comp master[];  // dynamic array of masters
     slave_comp  slave[];   // dynamic array of slaves
-    int num_masters = 1;
-    int num_slaves = 1;
+    int num_masters = 3;
+    int num_slaves = 5;
     string if_name = "bus_uvc";
 
     `uvm_component_utils_begin(interface_comp)
@@ -91,27 +91,39 @@ endmodule : test
 // # --------------------------------------------
 // # my_uvc         interface_comp  -     @355
 // #   master[0]    master_comp     -     @369
-// #   slave[0]     slave_comp      -     @377
+// #   master[1]    master_comp     -     @377
+// #   master[2]    master_comp     -     @385
+// #   slave[0]     slave_comp      -     @393
+// #   slave[1]     slave_comp      -     @401
+// #   slave[2]     slave_comp      -     @409
+// #   slave[3]     slave_comp      -     @417
+// #   slave[4]     slave_comp      -     @425
 // #   if_name      string          7     bus_uvc
-// #   num_masters  integral        32    'h1
-// #   num_slaves   integral        32    'h1
+// #   num_masters  integral        32    'h3
+// #   num_slaves   integral        32    'h5
 // # --------------------------------------------
 // #
-// # UVM_INFO ex4-6_default_config.sv(64) @ 0: my_uvc [UVC] bus_uvc has 1 master(s) and 1 slave(s)
+// # UVM_INFO ex4-6_default_config.sv(64) @ 0: my_uvc [UVC] bus_uvc has 3 master(s) and 5 slave(s)
+// # UVM_INFO ex4-6_default_config.sv(31) @ 0: my_uvc.slave[4] [SLAVE] run_phase: Executing.
+// # UVM_INFO ex4-6_default_config.sv(31) @ 0: my_uvc.slave[3] [SLAVE] run_phase: Executing.
+// # UVM_INFO ex4-6_default_config.sv(31) @ 0: my_uvc.slave[2] [SLAVE] run_phase: Executing.
+// # UVM_INFO ex4-6_default_config.sv(31) @ 0: my_uvc.slave[1] [SLAVE] run_phase: Executing.
 // # UVM_INFO ex4-6_default_config.sv(31) @ 0: my_uvc.slave[0] [SLAVE] run_phase: Executing.
+// # UVM_INFO ex4-6_default_config.sv(19) @ 0: my_uvc.master[2] [MASTER] run_phase: Executing.
+// # UVM_INFO ex4-6_default_config.sv(19) @ 0: my_uvc.master[1] [MASTER] run_phase: Executing.
 // # UVM_INFO ex4-6_default_config.sv(19) @ 0: my_uvc.master[0] [MASTER] run_phase: Executing.
 // # UVM_INFO verilog_src/uvm-1.2/src/base/uvm_report_server.svh(847) @ 0: reporter [UVM/REPORT/SERVER]
 // # --- UVM Report Summary ---
 // #
 // # ** Report counts by severity
-// # UVM_INFO :    8
+// # UVM_INFO :   14
 // # UVM_WARNING :    0
 // # UVM_ERROR :    0
 // # UVM_FATAL :    0
 // # ** Report counts by id
-// # [MASTER]     1
+// # [MASTER]     3
 // # [Questa UVM]     2
 // # [RNTST]     1
-// # [SLAVE]     1
+// # [SLAVE]     5
 // # [UVC]     2
 // # [UVM/RELNOTES]     1
