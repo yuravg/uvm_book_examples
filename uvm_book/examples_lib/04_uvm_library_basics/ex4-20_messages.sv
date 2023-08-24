@@ -1,15 +1,17 @@
 /****************************************************************
-  Example 4-20: UVM Message Macros within Modules
+ Example 4-20: UVM Message Macros within Modules
 
-  To run:   %  irun -uvm ex4-20_messages.sv
-****************************************************************/
+ To run:   %  irun -uvm ex4-20_messages.sv
+ ****************************************************************/
 module test;
 `include "uvm_macros.svh"
-import uvm_pkg::*;
+  import uvm_pkg::*;
 
-initial begin
-   uvm_report_info("TEST", "I am in the top-level test", UVM_NONE);
-   `uvm_info("TEST", "I am in the top-level test", UVM_NONE)
-end
-
+  initial begin
+    uvm_report_info("TEST", "I am in the top-level test", UVM_NONE);
+    `uvm_info("TEST", "I am in the top-level test", UVM_NONE)
+  end
 endmodule : test
+
+// OUTPUT:
+// # UVM_INFO ex4-20_messages.sv(12) @ 0: reporter [TEST] I am in the top-level test
