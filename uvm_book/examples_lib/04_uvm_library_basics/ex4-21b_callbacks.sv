@@ -4,11 +4,13 @@
  To run:   %  irun -uvm ex4-21b_callbacks.sv
  **********************************************************************/
 
-module top;
+module test;
   import uvm_pkg::*;
 `include "uvm_macros.svh"
 
   virtual class inj_err_cb extends uvm_callback;
+    `uvm_object_utils(inj_err_cb)
+
     function new(string name = "inj_err_cb");
       super.new(name);
     endfunction : new
@@ -17,8 +19,8 @@ module top;
   endclass : inj_err_cb
 
   class driver extends uvm_component;
-    `uvm_register_cb(driver, inj_err_cb)
     `uvm_component_utils(driver)
+    `uvm_register_cb(driver, inj_err_cb)
 
     function new(string name, uvm_component parent);
       super.new(name, parent);
@@ -58,7 +60,7 @@ module top;
 
     virtual task drive_transfer(uvm_object pkt);
       super.drive_transfer(pkt);
-      `uvm_info("MYINFO1", "Finished driving transfer", UVM_LOW)
+      `uvm_info("MYINFO", "Finished driving transfer", UVM_LOW)
     endtask : drive_transfer
 
     function new (string name, uvm_component parent);
@@ -74,4 +76,4 @@ module top;
     inj_err_cb_type::add(null, cb);
     run_test();
   end
-endmodule : top
+endmodule : test
