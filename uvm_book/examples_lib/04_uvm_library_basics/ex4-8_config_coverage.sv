@@ -40,7 +40,7 @@ package my_pkg;
     int num_slaves = 1;
     string if_name = "bus_uvc";
 
-    bit coverage_enable = 1;  // Flag to enable/disable covereage
+    bit coverage_enable = 0;  // Flag to enable/disable covereage
 
     covergroup config_cg;
       coverpoint num_masters;
@@ -58,6 +58,7 @@ package my_pkg;
       super.new(name, parent);
       void'(uvm_config_int::get(this,"" , "coverage_enable", coverage_enable));
       if (coverage_enable) begin
+        `uvm_info("UVC", "Enable coverage", UVM_LOW)
         config_cg = new();
       end
     endfunction : new
@@ -95,6 +96,7 @@ module test;
     // Configure BEFORE create
     uvm_config_string::set(null, "my_uvc", "if_name", "APB_UVC");
     uvm_config_int::set(null, "my_uvc", "num_slaves", 2);
+    uvm_config_int::set(null, "my_uvc", "coverage_enable", 1);
     // Create components
     my_uvc = interface_comp::type_id::create("my_uvc", null);
     // Start UVM Phases
@@ -103,20 +105,22 @@ module test;
 endmodule : test
 
 // OUTPUT:
-// # UVM_INFO ex4-8_config_coverage.sv(81) @ 0: my_uvc [UVC] run_phase: Hierarchy:
+// # UVM_INFO ex4-8_config_coverage.sv(61) @ 0: my_uvc [UVC] Enable coverage
+// # UVM_INFO @ 0: reporter [RNTST] Running test ...
+// # UVM_INFO ex4-8_config_coverage.sv(82) @ 0: my_uvc [UVC] run_phase: Hierarchy:
 // # --------------------------------------------
 // # Name           Type            Size  Value
 // # --------------------------------------------
-// # my_uvc         interface_comp  -     @361
-// #   master[0]    master_comp     -     @376
-// #   slave[0]     slave_comp      -     @384
-// #   slave[1]     slave_comp      -     @392
+// # my_uvc         interface_comp  -     @363
+// #   master[0]    master_comp     -     @380
+// #   slave[0]     slave_comp      -     @388
+// #   slave[1]     slave_comp      -     @396
 // #   if_name      string          7     APB_UVC
 // #   num_masters  integral        32    'h1
 // #   num_slaves   integral        32    'h2
 // # --------------------------------------------
 // #
-// # UVM_INFO ex4-8_config_coverage.sv(82) @ 0: my_uvc [UVC] APB_UVC has 1 master(s) and 2 slave(s)
+// # UVM_INFO ex4-8_config_coverage.sv(83) @ 0: my_uvc [UVC] APB_UVC has 1 master(s) and 2 slave(s)
 // # UVM_INFO ex4-8_config_coverage.sv(32) @ 0: my_uvc.slave[1] [SLAVE] run_phase: Executing.
 // # UVM_INFO ex4-8_config_coverage.sv(32) @ 0: my_uvc.slave[0] [SLAVE] run_phase: Executing.
 // # UVM_INFO ex4-8_config_coverage.sv(20) @ 0: my_uvc.master[0] [MASTER] run_phase: Executing.
@@ -124,7 +128,7 @@ endmodule : test
 // # --- UVM Report Summary ---
 // #
 // # ** Report counts by severity
-// # UVM_INFO :    9
+// # UVM_INFO :   10
 // # UVM_WARNING :    0
 // # UVM_ERROR :    0
 // # UVM_FATAL :    0
@@ -133,7 +137,7 @@ endmodule : test
 // # [Questa UVM]     2
 // # [RNTST]     1
 // # [SLAVE]     2
-// # [UVC]     2
+// # [UVC]     3
 // # [UVM/RELNOTES]     1
 // ...
 // (the stdout without coverage)
