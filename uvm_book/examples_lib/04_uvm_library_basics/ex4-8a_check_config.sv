@@ -47,7 +47,7 @@ class interface_comp extends uvm_component;
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    if (!uvm_config_db::exists(this, "", "num_masters", 1))
+    if (!uvm_config_db #(int)::exists(this, "", "num_masters", 1))
        `uvm_error("NOTFOUND", "num_masters must be provided")
     master = new[num_masters];
     slave = new[num_slaves];
