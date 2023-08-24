@@ -23,7 +23,8 @@ module top;
     endfunction : new
   endclass : stack
 
-  stack int_stack = new();             // id: 1
+  stack int_stack_pre = new();         // id: 1
+  stack int_stack = new();             // id: 2
   stack #(bit[9:0]) bit_stack = new(); // id: 1
   stack #(real) real_stack = new();    // id: 1
 
@@ -34,4 +35,4 @@ module top;
 endmodule : top
 
 // OUTPUT:
-// # int_stack.id=1   bit_stack.id=1   real_stack.id=1
+// # int_stack.id=2   bit_stack.id=1   real_stack.id=1
