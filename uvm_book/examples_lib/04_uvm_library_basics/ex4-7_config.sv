@@ -67,7 +67,7 @@ package my_pkg;
   endclass : interface_comp
 endpackage : my_pkg
 
-module test2;
+module test;
   import uvm_pkg::*;
 `include "uvm_macros.svh"
 
@@ -85,8 +85,7 @@ module test2;
     // Start UVM Phases
     run_test();
   end
-
-endmodule : test2
+endmodule : test
 
 // OUTPUT:
 // # UVM_INFO @ 0: reporter [RNTST] Running test ...
