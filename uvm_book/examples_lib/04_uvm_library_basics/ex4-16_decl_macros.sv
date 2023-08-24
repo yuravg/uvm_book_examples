@@ -1,19 +1,19 @@
 /****************************************************************
-  Example 4-16: Usage of `uvm_analysis_imp_decl macros
+ Example 4-16: Usage of `uvm_analysis_imp_decl macros
 
-  To run:   %  irun -uvm ex4-16_decl_macros.sv
-  Or:       %  irun -uvmhome $UVM_HOME ex4-16_decl_macros.sv
-****************************************************************/
+ To run:   %  irun -uvm ex4-16_decl_macros.sv
+ Or:       %  irun -uvmhome $UVM_HOME ex4-16_decl_macros.sv
+ ****************************************************************/
 package my_uvc_pkg;
   import uvm_pkg::*;
-  `include "uvm_macros.svh"
-  `include "simple_packet.sv" 
+`include "uvm_macros.svh"
+`include "simple_packet.sv"
   // Other files for this package
 endpackage : my_uvc_pkg
 
 package scoreboard_pkg;
   import uvm_pkg::*;
-  `include "uvm_macros.svh"
+`include "uvm_macros.svh"
   import my_uvc_pkg::*;  // includes simple_packet
 
   // TLM Port Declarations Macros
@@ -41,27 +41,27 @@ package scoreboard_pkg;
     endfunction : new
 
     function void write_inport1(simple_packet packet);
-       packet_fifo1.push_back(packet);
+      packet_fifo1.push_back(packet);
     endfunction : write_inport1
 
     function void write_inport2(simple_packet packet);
-       packet_fifo2.push_back(packet);
+      packet_fifo2.push_back(packet);
     endfunction : write_inport2
 
     function void write_outport1(simple_packet packet);
-       simple_packet expected;
-       expected = packet_fifo1.pop_front();
-       expected.transform1();  // execute some transformation function
-       if (!expected.compare(packet))
-         `uvm_error("SBFAIL", $sformatf("Expected: %s  Got: %s", expected.sprint(), packet.sprint()))
+      simple_packet expected;
+      expected = packet_fifo1.pop_front();
+      expected.transform1();  // execute some transformation function
+      if (!expected.compare(packet))
+        `uvm_error("SBFAIL", $sformatf("Expected: %s  Got: %s", expected.sprint(), packet.sprint()))
     endfunction : write_outport1
 
     function void write_outport2(simple_packet packet);
-       simple_packet expected;
-       expected = packet_fifo2.pop_front();
-       expected.transform2();  // execute a different transformation
-       if (!expected.compare(packet))
-         `uvm_error("SBFAIL", $sformatf("Expected: %s  Got: %s", expected.sprint(), packet.sprint()))
+      simple_packet expected;
+      expected = packet_fifo2.pop_front();
+      expected.transform2();  // execute a different transformation
+      if (!expected.compare(packet))
+        `uvm_error("SBFAIL", $sformatf("Expected: %s  Got: %s", expected.sprint(), packet.sprint()))
     endfunction : write_outport2
   endclass : myscoreboard
 endpackage : scoreboard_pkg
