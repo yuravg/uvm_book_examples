@@ -42,7 +42,6 @@ class parent_component extends uvm_agent;
   `uvm_component_utils(parent_component)
 
   function void build_phase(uvm_phase phase);
-    super.build_phase(phase);
     child_0 = child_component::type_id::create("child_0", this);
     child_1 = child_component::type_id::create("child_1", this);
     child_2 = child_component::type_id::create("child_2", this);
@@ -62,7 +61,6 @@ class simple_test extends uvm_test;
   `uvm_component_utils(simple_test)
 
   function void build_phase(uvm_phase phase);
-    super.build_phase(phase);
     uvm_config_int::set(this, "parent_0.child_0", "num_hb", 3);
     uvm_config_int::set(this, "parent_0.child_1", "num_hb", 5);
     uvm_config_int::set(this, "parent_0.child_2", "num_hb", 2);
@@ -73,7 +71,6 @@ class simple_test extends uvm_test;
 
   function void connect_phase(uvm_phase phase);
     uvm_component hb_l[$];
-    super.connect_phase(phase);
     // Set the heartbeat mode (default is UVM_ALL_ACTIVE)
     //    UVM_ALL_ACTIVE: All registered components must emit a heartbeat during the window
     //    UVM_ANY_ACTIVE: One or more components must emit a heartbeat during the window

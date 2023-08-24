@@ -50,7 +50,6 @@ package my_pkg;
     endfunction : new
 
     function void build_phase(uvm_phase phase);
-      super.build_phase(phase);
       if (!uvm_config_db #(int)::exists(this, "", "num_masters", 1))
         `uvm_error("NOTFOUND", "num_masters must be provided")
       master = new[num_masters];

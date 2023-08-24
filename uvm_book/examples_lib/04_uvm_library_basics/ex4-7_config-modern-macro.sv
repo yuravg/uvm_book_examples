@@ -52,7 +52,6 @@ package my_pkg;
     endfunction : new
 
     function void build_phase(uvm_phase phase);
-      super.build_phase(phase);
       master = new[num_masters];
       slave = new[num_slaves];
       foreach (master[i])

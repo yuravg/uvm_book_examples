@@ -52,18 +52,15 @@ module test;
     endfunction : new
 
     function void build_phase(uvm_phase phase);
-      super.build_phase(phase);
       producer_inst = producer::type_id::create("producer_inst", null);
       consumer_inst = consumer::type_id::create("consumer_inst", null);
     endfunction : build_phase
 
     function void connect_phase(uvm_phase phase);
-      super.connect_phase(phase);
       producer_inst.put_port.connect(consumer_inst.put_export);
     endfunction : connect_phase
 
     function void end_of_elaboration_phase(uvm_phase phase);
-      super.end_of_elaboration_phase(phase);
       this.print();
     endfunction : end_of_elaboration_phase
   endclass : parent_comp

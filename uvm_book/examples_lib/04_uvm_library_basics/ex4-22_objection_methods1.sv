@@ -51,7 +51,6 @@ class simple_if_comp extends uvm_component;
   endfunction : new
 
   function void build_phase(uvm_phase phase);
-    super.build_phase(phase);
     master = master_comp::type_id::create("master", this);
     slave  = slave_comp::type_id::create("slave", this);
   endfunction : build_phase
@@ -72,11 +71,9 @@ class testbench_comp extends uvm_component;
     super.new(name, parent);
   endfunction : new
   function void build_phase(uvm_phase phase);
-    super.build_phase(phase);
     my_uvc = simple_if_comp::type_id::create("my_uvc", this);
   endfunction : build_phase
   function void end_of_elaboration_phase(uvm_phase phase);
-    super.end_of_elaboration_phase(phase);
     `uvm_info("TBENCH", {"end_of_elaboration_phase: Hierarchy\n", 
                this.sprint()}, UVM_LOW)
   endfunction : end_of_elaboration_phase

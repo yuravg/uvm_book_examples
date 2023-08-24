@@ -25,7 +25,6 @@ class driver extends uvm_component;
  
   task run_phase(uvm_phase phase);
     apb_transfer transfer;
-    super.run_phase(phase);
     transfer = apb_transfer::type_id::create("transfer");
     void'(transfer.randomize());
     drive_transfer(transfer);
