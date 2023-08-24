@@ -9,6 +9,8 @@ module test;
 `include "apb_transfer.sv"
 
   virtual class driver_cb extends uvm_callback;
+    `uvm_object_utils(driver_cb)
+
     function new(string name = "driver_cb");
       super.new(name);
     endfunction : new
@@ -17,9 +19,9 @@ module test;
   endclass : driver_cb
 
   class driver extends uvm_component;
+    `uvm_component_utils(driver)
     `uvm_register_cb(driver, driver_cb)
 
-    `uvm_component_utils(driver)
     function new(string name, uvm_component parent);
       super.new(name, parent);
     endfunction : new
@@ -89,8 +91,8 @@ endmodule : test
 // # my_agent     agent   -     @372
 // #   my_driver  driver  -     @380
 // # --------------------------------
-// # UVM_INFO ex4-21a_callbacks.sv(51) @ 0: reporter [DRIVER_CB] injecting an error into the transfer
-// # UVM_INFO ex4-21a_callbacks.sv(37) @ 0: my_agent.my_driver [DRIVER] transfer: (apb_transfer@401) { addr: 'hd6cd8cf2  data: 'h99d7bae9  direction: APB_WRITE  transmit_delay: 'hd  }
+// # UVM_INFO ex4-21a_callbacks.sv(53) @ 0: reporter [DRIVER_CB] injecting an error into the transfer
+// # UVM_INFO ex4-21a_callbacks.sv(39) @ 0: my_agent.my_driver [DRIVER] transfer: (apb_transfer@401) { addr: 'hd6cd8cf2  data: 'h99d7bae9  direction: APB_WRITE  transmit_delay: 'hd  }
 // #
 // # UVM_INFO verilog_src/uvm-1.2/src/base/uvm_report_server.svh(847) @ 0: reporter [UVM/REPORT/SERVER]
 // # --- UVM Report Summary ---
