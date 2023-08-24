@@ -8,10 +8,10 @@ module test;
 `include "uvm_macros.svh"
 `include "simple_packet.sv"
 
-  class producer_2 extends uvm_component;
-    uvm_blocking_get_imp #(simple_packet, producer_2) get_export;
+  class producer extends uvm_component;
+    uvm_blocking_get_imp #(simple_packet, producer) get_export;
 
-    `uvm_component_utils(producer_2)
+    `uvm_component_utils(producer)
 
     function new(string name, uvm_component parent);
       super.new(name, parent);
@@ -24,12 +24,12 @@ module test;
       void'(packet_temp.randomize());
       packet = packet_temp;
     endtask : get
-  endclass : producer_2
+  endclass : producer
 
-  class consumer_2 extends uvm_component;
+  class consumer extends uvm_component;
     uvm_blocking_get_port #(simple_packet) get_port;
 
-    `uvm_component_utils(consumer_2)
+    `uvm_component_utils(consumer)
 
     function new(string name, uvm_component parent);
       super.new(name, parent);
@@ -41,12 +41,12 @@ module test;
       get_port.get(packet);
       packet.print();
     endtask : run_phase
-  endclass : consumer_2
+  endclass : consumer
 
   class parent_comp extends uvm_component;
 
-    producer_2 producer_inst;
-    consumer_2 consumer_inst;
+    producer producer_inst;
+    consumer consumer_inst;
 
     `uvm_component_utils(parent_comp)
 
@@ -55,8 +55,8 @@ module test;
     endfunction : new
 
     function void build_phase(uvm_phase phase);
-      producer_inst = producer_2::type_id::create("producer_inst", null);
-      consumer_inst = consumer_2::type_id::create("consumer_inst", null);
+      producer_inst = producer::type_id::create("producer_inst", null);
+      consumer_inst = consumer::type_id::create("consumer_inst", null);
     endfunction : build_phase
 
     function void connect_phase(uvm_phase phase);
