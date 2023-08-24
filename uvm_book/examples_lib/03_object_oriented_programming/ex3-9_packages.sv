@@ -32,7 +32,7 @@ package JRSports_pkg;
   endclass : M8
 endpackage : JRSports_pkg
 
-module race;
+module top;
   import KCMotors_pkg::*;
   import JRSports_pkg::*;
 
@@ -47,7 +47,7 @@ module race;
     void'(my_M8.randomize());
     my_M8.print();
   end
-endmodule : race
+endmodule : top
 
 // OUTPUT:
 // # I'm a BLACK KCMotors sports coupe
