@@ -70,6 +70,7 @@ endpackage : my_pkg
 module test2;
   import uvm_pkg::*;
 `include "uvm_macros.svh"
+
   import my_pkg::*;
 
   interface_comp my_uvc;
@@ -77,12 +78,14 @@ module test2;
   initial begin
     // Configure BEFORE create
     uvm_config_string::set(null, "my_uvc", "if_name", "APB_UVC");
-    uvm_config_int::set(null, "my_uvc", "num_slaves", 2);
+    uvm_config_int::set(null, "my_uvc", "num_masters", 2);
+    uvm_config_int::set(null, "my_uvc", "num_slaves", 4);
     // Create components
     my_uvc = interface_comp::type_id::create("my_uvc", null);
     // Start UVM Phases
     run_test();
   end
+
 endmodule : test2
 
 // OUTPUT:
@@ -91,31 +94,37 @@ endmodule : test2
 // # --------------------------------------------
 // # Name           Type            Size  Value
 // # --------------------------------------------
-// # my_uvc         interface_comp  -     @361
-// #   master[0]    master_comp     -     @375
-// #   slave[0]     slave_comp      -     @383
-// #   slave[1]     slave_comp      -     @391
+// # my_uvc         interface_comp  -     @363
+// #   master[0]    master_comp     -     @377
+// #   master[1]    master_comp     -     @385
+// #   slave[0]     slave_comp      -     @393
+// #   slave[1]     slave_comp      -     @401
+// #   slave[2]     slave_comp      -     @409
+// #   slave[3]     slave_comp      -     @417
 // #   if_name      string          7     APB_UVC
-// #   num_masters  integral        32    'h1
-// #   num_slaves   integral        32    'h2
+// #   num_masters  integral        32    'h2
+// #   num_slaves   integral        32    'h4
 // # --------------------------------------------
 // #
-// # UVM_INFO ex4-7_config.sv(64) @ 0: my_uvc [UVC] APB_UVC has 1 master(s) and 2 slave(s)
+// # UVM_INFO ex4-7_config.sv(64) @ 0: my_uvc [UVC] APB_UVC has 2 master(s) and 4 slave(s)
+// # UVM_INFO ex4-7_config.sv(31) @ 0: my_uvc.slave[3] [SLAVE] run_phase: Executing.
+// # UVM_INFO ex4-7_config.sv(31) @ 0: my_uvc.slave[2] [SLAVE] run_phase: Executing.
 // # UVM_INFO ex4-7_config.sv(31) @ 0: my_uvc.slave[1] [SLAVE] run_phase: Executing.
 // # UVM_INFO ex4-7_config.sv(31) @ 0: my_uvc.slave[0] [SLAVE] run_phase: Executing.
+// # UVM_INFO ex4-7_config.sv(19) @ 0: my_uvc.master[1] [MASTER] run_phase: Executing.
 // # UVM_INFO ex4-7_config.sv(19) @ 0: my_uvc.master[0] [MASTER] run_phase: Executing.
 // # UVM_INFO verilog_src/uvm-1.2/src/base/uvm_report_server.svh(847) @ 0: reporter [UVM/REPORT/SERVER]
 // # --- UVM Report Summary ---
 // #
 // # ** Report counts by severity
-// # UVM_INFO :    9
+// # UVM_INFO :   12
 // # UVM_WARNING :    0
 // # UVM_ERROR :    0
 // # UVM_FATAL :    0
 // # ** Report counts by id
-// # [MASTER]     1
+// # [MASTER]     2
 // # [Questa UVM]     2
 // # [RNTST]     1
-// # [SLAVE]     2
+// # [SLAVE]     4
 // # [UVC]     2
 // # [UVM/RELNOTES]     1
