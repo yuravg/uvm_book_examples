@@ -25,6 +25,19 @@ package my_pkg;
     endtask : drive_transfer
   endclass : driver
 
+  class my_project_driver extends driver;
+    `uvm_component_utils(my_project_driver)
+
+    function new (string name, uvm_component parent);
+      super.new(name, parent);
+    endfunction : new
+
+    virtual task drive_transfer();
+      super.drive_transfer();
+      `uvm_info("MYINFO", "Finished driving transfer", UVM_LOW)
+    endtask : drive_transfer
+  endclass : my_project_driver
+
   class agent extends uvm_component;
     `uvm_component_utils(agent)
 
@@ -39,19 +52,6 @@ package my_pkg;
       my_driver = new("my_driver", this);  // using new()
     endfunction : new
   endclass : agent
-
-  class my_project_driver extends driver;
-    `uvm_component_utils(my_project_driver)
-
-    function new (string name, uvm_component parent);
-      super.new(name, parent);
-    endfunction : new
-
-    virtual task drive_transfer();
-      super.drive_transfer();
-      `uvm_info("MYINFO", "Finished driving transfer", UVM_LOW)
-    endtask : drive_transfer
-  endclass : my_project_driver
 
   class my_project_agent extends uvm_component;
     `uvm_component_utils(my_project_agent)
