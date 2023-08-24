@@ -48,6 +48,7 @@ package my_pkg;
     // UVM build_phase() method
     function void build_phase(uvm_phase phase);
       super.build_phase(phase);
+      `uvm_info("UVC", "build_phase: Executing.", UVM_LOW)
       master = master_comp::type_id::create("master", this);
       slave  = slave_comp::type_id::create("slave", this);
     endfunction : build_phase
@@ -110,28 +111,29 @@ endmodule : test
 
 // OUTPUT:
 // # UVM_INFO @ 0: reporter [RNTST] Running test ...
-// # UVM_INFO ex4-5_sim_phases.sv(84) @ 0: testbench [TBENCH] end_of_elaboration_phase: Hierarchy
+// # UVM_INFO ex4-5_sim_phases.sv(51) @ 0: testbench.my_uvc [UVC] build_phase: Executing.
+// # UVM_INFO ex4-5_sim_phases.sv(85) @ 0: testbench [TBENCH] end_of_elaboration_phase: Hierarchy
 // # ---------------------------------------
 // # Name        Type            Size  Value
 // # ---------------------------------------
 // # testbench   testbench_comp  -     @355
 // #   my_uvc    simple_if_comp  -     @367
-// #     master  master_comp     -     @375
-// #     slave   slave_comp      -     @383
+// #     master  master_comp     -     @377
+// #     slave   slave_comp      -     @385
 // # ---------------------------------------
 // #
-// # UVM_INFO ex4-5_sim_phases.sv(90) @ 0: testbench [TBENCH] run_phase: Executing.
-// # UVM_INFO ex4-5_sim_phases.sv(59) @ 0: testbench.my_uvc [UVC] run_phase: Executing.
-// # UVM_INFO ex4-5_sim_phases.sv(60) @ 0: testbench.my_uvc [UVC] parent: testbench
-// # UVM_INFO ex4-5_sim_phases.sv(62) @ 0: testbench.my_uvc [UVC] child: master
-// # UVM_INFO ex4-5_sim_phases.sv(64) @ 0: testbench.my_uvc [UVC] child: slave
+// # UVM_INFO ex4-5_sim_phases.sv(91) @ 0: testbench [TBENCH] run_phase: Executing.
+// # UVM_INFO ex4-5_sim_phases.sv(60) @ 0: testbench.my_uvc [UVC] run_phase: Executing.
+// # UVM_INFO ex4-5_sim_phases.sv(61) @ 0: testbench.my_uvc [UVC] parent: testbench
+// # UVM_INFO ex4-5_sim_phases.sv(63) @ 0: testbench.my_uvc [UVC] child: master
+// # UVM_INFO ex4-5_sim_phases.sv(65) @ 0: testbench.my_uvc [UVC] child: slave
 // # UVM_INFO ex4-5_sim_phases.sv(33) @ 0: testbench.my_uvc.slave [SLAVE] run_phase: Executing.
 // # UVM_INFO ex4-5_sim_phases.sv(20) @ 0: testbench.my_uvc.master [MASTER] run_phase: Executing.
 // # UVM_INFO verilog_src/uvm-1.2/src/base/uvm_report_server.svh(847) @ 0: reporter [UVM/REPORT/SERVER]
 // # --- UVM Report Summary ---
 // #
 // # ** Report counts by severity
-// # UVM_INFO :   12
+// # UVM_INFO :   13
 // # UVM_WARNING :    0
 // # UVM_ERROR :    0
 // # UVM_FATAL :    0
@@ -141,5 +143,5 @@ endmodule : test
 // # [RNTST]     1
 // # [SLAVE]     1
 // # [TBENCH]     2
-// # [UVC]     4
+// # [UVC]     5
 // # [UVM/RELNOTES]     1
