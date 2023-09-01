@@ -42,7 +42,6 @@ endclass : apb_slave_agent
 
 // UVM build() phase
 function void apb_slave_agent::build();
-  super.build();
   if (cfg != null) is_active = cfg.is_active;
   // Always create the collector and monitor
   collector = apb_collector::type_id::create("collector", this);

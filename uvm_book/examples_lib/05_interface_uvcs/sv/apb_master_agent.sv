@@ -40,7 +40,6 @@ endclass : apb_master_agent
 
 // UVM build_phase()
 function void apb_master_agent::build_phase(uvm_phase phase);
-  super.build_phase(phase);
   // Always create the collector and monitor
   collector = apb_collector::type_id::create("collector", this);
   monitor = apb_monitor::type_id::create("monitor", this);

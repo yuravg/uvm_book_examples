@@ -84,7 +84,6 @@ endclass : apb_monitor
 
 // UVM build_phase
 function void apb_monitor::build_phase(uvm_phase phase);
-  super.build_phase(phase);
   if (cfg == null)
     if (!uvm_config_db#(apb_config)::get(this, "", "cfg", cfg))
       `uvm_warning("NOCONFIG", "apb_config not set for this component")
