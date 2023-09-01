@@ -1,9 +1,9 @@
 /****************************************************************
-  File: apb_slave_agent.sv
-  Description: APB Slave Agent Definition
-****************************************************************/
+ File: apb_slave_agent.sv
+ Description: APB Slave Agent Definition
+ ****************************************************************/
 `ifndef APB_SLAVE_AGENT_SV
-`define APB_SLAVE_AGENT_SV
+  `define APB_SLAVE_AGENT_SV
 
 //------------------------------------------------------------------------------
 // CLASS: apb_slave_agent
@@ -29,10 +29,10 @@ class apb_slave_agent extends uvm_agent;
   `uvm_component_utils_end
 
   // new - constructor
-  function new (string name, uvm_component parent);
+  function new(string name, uvm_component parent);
     super.new(name, parent);
   endfunction : new
-  
+
   // Additional class methods
   extern virtual function void build();
   extern virtual function void connect();
@@ -47,7 +47,7 @@ function void apb_slave_agent::build();
   // Always create the collector and monitor
   collector = apb_collector::type_id::create("collector", this);
   monitor = apb_monitor::type_id::create("monitor", this);
-  if(is_active == UVM_ACTIVE) begin
+  if (is_active == UVM_ACTIVE) begin
     sequencer = apb_slave_sequencer::type_id::create("sequencer",this);
     driver = apb_slave_driver::type_id::create("driver",this);
   end
@@ -67,7 +67,7 @@ endfunction : connect
 function void apb_slave_agent::assign_vi(virtual interface apb_if vif);
   collector.vif = vif;
   if (is_active == UVM_ACTIVE) begin
-    if(driver != null) driver.vif = vif;
+    if (driver != null) driver.vif = vif;
   end
 endfunction : assign_vi
 

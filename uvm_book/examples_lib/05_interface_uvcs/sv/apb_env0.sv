@@ -1,8 +1,8 @@
 /*******************************************************************************
-  FILE : apb_env.sv
-*******************************************************************************/
+ FILE : apb_env.sv
+ *******************************************************************************/
 `ifndef APB_ENV_SV
-`define APB_ENV_SV
+  `define APB_ENV_SV
 
 //------------------------------------------------------------------------------
 // CLASS: apb_env
@@ -40,13 +40,13 @@ function void apb_env::build_phase(uvm_phase phase);
   super.build_phase(phase);
 
   // Get or create the APB UVC configuration class
-  if(cfg == null)  begin
+  if (cfg == null) begin
     `uvm_info("NOCONFIG", "using default_apb_config", UVM_MEDIUM)
     $cast(cfg, factory.create_object_by_name("default_apb_config","cfg"));
   end
   // set the master config and slave configs before creating them
   uvm_config_object::set(this, "*", "cfg", cfg);
-  foreach(cfg.slave_configs[i])
+  foreach (cfg.slave_configs[i])
     uvm_config_object::set(this, $sformatf("slave[%0d]*", i), "cfg", cfg.slave_configs[i]);
 
   if (cfg.has_bus_monitor) begin
@@ -55,7 +55,7 @@ function void apb_env::build_phase(uvm_phase phase);
   end
   master = apb_master_agent::type_id::create(cfg.master_config.name,this);
   slaves = new[cfg.slave_configs.size()];
-  foreach(slaves[i]) begin
+  foreach (slaves[i]) begin
     slaves[i] = apb_slave_agent::type_id::create($sformatf("slave[%0d]", i), this);
   end
 endfunction : build_phase
@@ -64,9 +64,9 @@ function void apb_env::connect_phase(uvm_phase phase);
   super.connect_phase(phase);
   bus_collector.item_collected_port.connect(bus_monitor.coll_mon_port);
   bus_monitor.addr_trans_port.connect(bus_collector.addr_trans_export);
-  foreach(slaves[i]) begin
+  foreach (slaves[i]) begin
     if (slaves[i].is_active == UVM_ACTIVE)
-     slaves[i].sequencer.addr_trans_port.connect(bus_monitor.addr_trans_export);
+      slaves[i].sequencer.addr_trans_port.connect(bus_monitor.addr_trans_export);
   end
 endfunction : connect_phase
 

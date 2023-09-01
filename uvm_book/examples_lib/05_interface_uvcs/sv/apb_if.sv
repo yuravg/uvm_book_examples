@@ -1,5 +1,5 @@
 /******************************************************************************
-  FILE : apb_if.sv
+ FILE : apb_if.sv
  ******************************************************************************/
 interface apb_if (input pclk, input presetn);
   // Signals
@@ -16,6 +16,6 @@ interface apb_if (input pclk, input presetn);
   bit                has_checks = 1;
   bit                has_coverage = 1;
 
-// Coverage and assertions to be implemented here.
+  // Coverage and assertions to be implemented here.
 
 endinterface : apb_if

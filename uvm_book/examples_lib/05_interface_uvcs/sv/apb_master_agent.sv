@@ -1,9 +1,9 @@
 /****************************************************************
-  File: apb_mster_agent.sv
-  Description: APB Master Agent Definition
-****************************************************************/
+ File: apb_mster_agent.sv
+ Description: APB Master Agent Definition
+ ****************************************************************/
 `ifndef APB_MASTER_AGENT_SV
-`define APB_MASTER_AGENT_SV
+  `define APB_MASTER_AGENT_SV
 
 //------------------------------------------------------------------------------
 // CLASS: apb_master_agent
@@ -11,7 +11,7 @@
 class apb_master_agent extends uvm_agent;
 
   // This field determines whether an agent is active or passive.
-//  uvm_active_passive_enum is_active = UVM_ACTIVE;
+  //  uvm_active_passive_enum is_active = UVM_ACTIVE;
 
   // Configuration information: (master_config: name, is_active)
   apb_config cfg;
@@ -28,10 +28,10 @@ class apb_master_agent extends uvm_agent;
   `uvm_component_utils_end
 
   // new - constructor
-  function new (string name, uvm_component parent);
+  function new(string name, uvm_component parent);
     super.new(name, parent);
   endfunction : new
-  
+
   // Additional class methods
   extern virtual function void build_phase(uvm_phase phase);
   extern virtual function void connect_phase(uvm_phase phase);
@@ -44,7 +44,7 @@ function void apb_master_agent::build_phase(uvm_phase phase);
   // Always create the collector and monitor
   collector = apb_collector::type_id::create("collector", this);
   monitor = apb_monitor::type_id::create("monitor", this);
-  if(is_active == UVM_ACTIVE) begin
+  if (is_active == UVM_ACTIVE) begin
     sequencer = apb_master_sequencer::type_id::create("sequencer",this);
     driver = apb_master_driver::type_id::create("driver",this);
   end

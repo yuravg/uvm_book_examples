@@ -1,9 +1,9 @@
 /****************************************************************
-  File: apb_bus_monitor.sv
-  Description: APB Bus Monitor
-****************************************************************/
+ File: apb_bus_monitor.sv
+ Description: APB Bus Monitor
+ ****************************************************************/
 `ifndef APB_BUS_MONITOR_SV
-`define APB_BUS_MONITOR_SV
+  `define APB_BUS_MONITOR_SV
 //------------------------------------------------------------------------------
 // CLASS: apb_bus_monitor
 //------------------------------------------------------------------------------
@@ -15,7 +15,7 @@ class apb_bus_monitor extends uvm_monitor;
 
   // The following two bits are used to control whether checks and coverage are
   // done both in the monitor class and the interface.
-  bit checks_enable = 1; 
+  bit checks_enable = 1;
   bit coverage_enable = 1;
 
   //APB Configuration Class
@@ -48,10 +48,10 @@ class apb_bus_monitor extends uvm_monitor;
       bins ALL_ONES = {8'hff};
     }
     TRANS_ADDR_X_TRANS_DIRECTION: cross TRANS_ADDR, TRANS_DIRECTION;
-  endgroup
+  endgroup : apb_transfer_cg
 
   // Constructor - required syntax for UVM automation and utilities
-  function new (string name, uvm_component parent);
+  function new(string name, uvm_component parent);
     super.new(name, parent);
     trans_collected = new();
     apb_transfer_cg = new();
@@ -87,21 +87,21 @@ task apb_bus_monitor::run_phase(uvm_phase phase);
       1'b0 : trans_collected.direction = APB_READ;
       1'b1 : trans_collected.direction = APB_WRITE;
     endcase
-    if(trans_collected.direction == APB_READ)
+    if (trans_collected.direction == APB_READ)
       trans_collected.data = vif.prdata;
     if (trans_collected.direction == APB_WRITE)
       trans_collected.data = vif.pwdata;
     @(posedge vif.pclk);
-    if(trans_collected.direction == APB_READ)
+    if (trans_collected.direction == APB_READ)
       trans_collected.data = vif.prdata;
     this.end_tr(trans_collected);
     if (coverage_enable) perform_coverage();
     if (coverage_enable) perform_checks();
     item_collected_port.write(trans_collected);
     `uvm_info(get_type_name(), $sformatf("Transfer collected :\n%s",
-              trans_collected.sprint()), UVM_HIGH)
-     num_transactions++;
-    end
+                                         trans_collected.sprint()), UVM_HIGH)
+    num_transactions++;
+  end
 endtask : run_phase
 
 // FUNCTION: perform_checks()
