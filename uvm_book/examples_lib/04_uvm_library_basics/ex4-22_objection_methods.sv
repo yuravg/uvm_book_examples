@@ -95,12 +95,12 @@ package my_pkg;
       `uvm_info("TBENCH", $sformatf("get_objection_total=%0d", objection.get_objection_total), UVM_LOW)
     endtask : run_phase
 
-    task all_dropped(uvm_objection objection, uvm_object source_obj, string description, int count);
-      if (objection == uvm_test_done) begin
-        //repeat (15) @(posedge vif.pclock);
-        #100 objection.clear();
-      end
-    endtask : all_dropped
+    // task all_dropped(uvm_objection objection, uvm_object source_obj, string description, int count);
+    //   if (objection == uvm_test_done) begin
+    //     //repeat (15) @(posedge vif.pclock);
+    //     #100 objection.clear();
+    //   end
+    // endtask : all_dropped
   endclass : testbench_comp
 endpackage : my_pkg
 
@@ -150,24 +150,22 @@ endmodule : test
 // #
 // # UVM_INFO ex4-22_objection_methods.sv(94) @ 18: testbench [TBENCH] get_objection_count=0
 // # UVM_INFO ex4-22_objection_methods.sv(95) @ 18: testbench [TBENCH] get_objection_total=5
-// # UVM_WARNING @ 1200: run [OBJTN_CLEAR] Object 'uvm_top' cleared objection counts for run
-// # UVM_FATAL verilog_src/uvm-1.2/src/base/uvm_phase.svh(1489) @ 9200000000000: reporter [PH_TIMEOUT] Default timeout of 9200000000000 hit, indicating a probable testbench issue
-// # UVM_INFO verilog_src/uvm-1.2/src/base/uvm_report_server.svh(847) @ 9200000000000: reporter [UVM/REPORT/SERVER]
+// # UVM_INFO verilog_src/uvm-1.2/src/base/uvm_objection.svh(1270) @ 1100: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+// # UVM_INFO verilog_src/uvm-1.2/src/base/uvm_report_server.svh(847) @ 1100: reporter [UVM/REPORT/SERVER]
 // # --- UVM Report Summary ---
 // #
 // # ** Report counts by severity
-// # UVM_INFO :   12
-// # UVM_WARNING :    1
+// # UVM_INFO :   13
+// # UVM_WARNING :    0
 // # UVM_ERROR :    0
-// # UVM_FATAL :    1
+// # UVM_FATAL :    0
 // # ** Report counts by id
 // # [MASTER]     1
-// # [OBJTN_CLEAR]     1
-// # [PH_TIMEOUT]     1
 // # [Questa UVM]     2
 // # [RNTST]     1
 // # [SLAVE]     1
 // # [TBENCH]     4
+// # [TEST_DONE]     1
 // # [UVC]     1
 // # [UVM/OBJ/DISPLAY]     1
 // # [UVM/RELNOTES]     1
