@@ -22,13 +22,13 @@ class apb_monitor extends uvm_monitor;
   uvm_analysis_port #(apb_transfer) item_collected_port;
 
   // TLM Connection to the Collector - look for a write() task implementation
-  uvm_analysis_imp  #(apb_transfer, apb_monitor) coll_mon_port;
+  uvm_analysis_imp #(apb_transfer, apb_monitor) coll_mon_port;
 
   // Allows the sequencer to look at monitored data for responses
-  uvm_blocking_peek_imp#(apb_transfer,apb_monitor) addr_trans_export;
+  uvm_blocking_peek_imp #(apb_transfer,apb_monitor) addr_trans_export;
 
   // Allows monitor to look at collector for address information
-  uvm_blocking_peek_port#(apb_transfer) addr_trans_port;
+  uvm_blocking_peek_port #(apb_transfer) addr_trans_port;
 
   event trans_addr_grabbed;
 
@@ -85,7 +85,7 @@ endclass : apb_monitor
 // UVM build_phase
 function void apb_monitor::build_phase(uvm_phase phase);
   if (cfg == null)
-    if (!uvm_config_db#(apb_config)::get(this, "", "cfg", cfg))
+    if (!uvm_config_db #(apb_config)::get(this, "", "cfg", cfg))
       `uvm_warning("NOCONFIG", "apb_config not set for this component")
 endfunction : build_phase
 

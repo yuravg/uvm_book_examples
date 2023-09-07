@@ -23,10 +23,10 @@ class apb_write_read_word_seq extends uvm_sequence #(apb_transfer);
     `uvm_info(get_type_name(), "Starting...", UVM_HIGH)
     // write one transfer
     `uvm_do_with(req, {req.addr == start_addr;
-                       req.direction == APB_WRITE;})
+      req.direction == APB_WRITE;})
     // read from the same address
     `uvm_do_with(req, {req.addr == start_addr;
-                       req.direction == APB_READ;})
+      req.direction == APB_READ;})
     // NOTE:  The `uvm_do_with macro expands to the following:
     //    req = apb_transfer::type_id::create("req");
     //    start_item(req);

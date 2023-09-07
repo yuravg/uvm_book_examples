@@ -31,7 +31,7 @@ endclass : apb_master_driver
 // UVM connect_phase - gets the vif as a config property
 function void apb_master_driver::connect_phase(uvm_phase phase);
   super.connect_phase(phase);
-  if (!uvm_config_db#(virtual apb_if)::get(this, get_full_name(), "vif", vif))
+  if (!uvm_config_db #(virtual apb_if)::get(this, get_full_name(), "vif", vif))
     `uvm_error("NOVIF",{"virtual interface must be set for: ",get_full_name(), ".vif"})
 endfunction : connect_phase
 

@@ -71,7 +71,7 @@ endclass : apb_bus_monitor
 // UVM connect_phase
 function void apb_bus_monitor::connect_phase(uvm_phase phase);
   super.connect_phase(phase);
-  if (!uvm_config_db#(virtual apb_if)::get(this, get_full_name(), "vif", vif))
+  if (!uvm_config_db #(virtual apb_if)::get(this, get_full_name(), "vif", vif))
     `uvm_error("NOVIF", {"virtual interface (apb_if) must be set for: ", get_full_name(), ".vif"})
 endfunction : connect_phase
 

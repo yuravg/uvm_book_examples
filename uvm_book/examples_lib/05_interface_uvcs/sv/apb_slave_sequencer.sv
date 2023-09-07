@@ -3,7 +3,7 @@
 //------------------------------------------------------------------------------
 class apb_slave_sequencer extends uvm_sequencer #(apb_transfer);
 
-  uvm_blocking_peek_port#(apb_transfer) addr_trans_port;
+  uvm_blocking_peek_port #(apb_transfer) addr_trans_port;
 
   apb_slave_config cfg;
 
@@ -20,7 +20,7 @@ class apb_slave_sequencer extends uvm_sequencer #(apb_transfer);
 
   virtual function void build_phase(uvm_phase phase);
     if (cfg == null)
-      if (!uvm_config_db#(apb_slave_config)::get(this, "", "cfg", cfg))
+      if (!uvm_config_db #(apb_slave_config)::get(this, "", "cfg", cfg))
         `uvm_error("NOCONFIG", "No configuration set")
   endfunction : build_phase
 

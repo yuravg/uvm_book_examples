@@ -30,7 +30,7 @@ function void apb_env::build_phase(uvm_phase phase);
 
   // Get or create the APB UVC configuration class
   if (cfg == null)
-    if (!uvm_config_db#(apb_config)::get(this, "", "cfg", cfg)) begin
+    if (!uvm_config_db #(apb_config)::get(this, "", "cfg", cfg)) begin
       `uvm_info("NOCONFIG", "using default_apb_config", UVM_MEDIUM)
       $cast(cfg, factory.create_object_by_name("default_apb_config","cfg"));
     end

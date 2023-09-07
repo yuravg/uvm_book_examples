@@ -41,7 +41,7 @@ function void apb_slave_driver::connect_phase(uvm_phase phase);
   // been set via the configuration property, or it may have been set directly
   // by its containing agent.
   if (vif == null) begin
-    if (!uvm_config_db#(virtual apb_if)::get(this, "", "vif", vif))
+    if (!uvm_config_db #(virtual apb_if)::get(this, "", "vif", vif))
       `uvm_error("NOVIF",{"virtual interface must be set for: ",get_full_name(),".vif"})
   end
 endfunction : connect_phase
