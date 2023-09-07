@@ -1,6 +1,6 @@
 /*******************************************************************************
-  FILE : apb_env.sv
-*******************************************************************************/
+ FILE : apb_env.sv
+ *******************************************************************************/
 //   Copyright 1999-2010 Cadence Design Systems, Inc.
 //   All Rights Reserved Worldwide
 //
@@ -20,7 +20,7 @@
 //----------------------------------------------------------------------
 
 `ifndef APB_ENV_SV
-`define APB_ENV_SV
+  `define APB_ENV_SV
 
 //------------------------------------------------------------------------------
 // CLASS: apb_env
@@ -38,7 +38,7 @@ class apb_env extends uvm_env;
 
   // The following two bits are used to control whether checks and coverage are
   // done both in the bus monitor class and the interface.
-  bit checks_enable = 1; 
+  bit checks_enable = 1;
   bit coverage_enable = 1;
 
   // Components of the environment
@@ -73,17 +73,17 @@ endclass : apb_env
 function void apb_env::build_phase(uvm_phase phase);
   super.build_phase(phase);
   // Create the APB UVC configuration class if it has not been set
-  if(cfg == null) //begin
-    if (!uvm_config_db#(apb_config)::get(this, "", "cfg", cfg)) begin
-    `uvm_info("NOCONFIG", "Using default_apb_config", UVM_MEDIUM)
-    $cast(cfg, factory.create_object_by_name("default_apb_config","cfg"));
-  end
+  if (cfg == null) //begin
+    if (!uvm_config_db #(apb_config)::get(this, "", "cfg", cfg)) begin
+      `uvm_info("NOCONFIG", "Using default_apb_config", UVM_MEDIUM)
+      $cast(cfg, factory.create_object_by_name("default_apb_config","cfg"));
+    end
   // set the master config
-  uvm_config_object::set(this, "*", "cfg", cfg); 
+  uvm_config_object::set(this, "*", "cfg", cfg);
   // set the slave configs
-  foreach(cfg.slave_configs[i]) begin
+  foreach (cfg.slave_configs[i]) begin
     string sname;
-    sname = $sformatf("slave[%0d]*", i); 
+    sname = $sformatf("slave[%0d]*", i);
     uvm_config_object::set(this, sname, "cfg", cfg.slave_configs[i]);
   end
 
@@ -91,7 +91,7 @@ function void apb_env::build_phase(uvm_phase phase);
   bus_collector = apb_collector::type_id::create("bus_collector",this);
   master = apb_master_agent::type_id::create(cfg.master_config.name,this);
   slaves = new[cfg.slave_configs.size()];
-  for(int i = 0; i < cfg.slave_configs.size(); i++) begin
+  for (int i = 0; i < cfg.slave_configs.size(); i++) begin
     slaves[i] = apb_slave_agent::type_id::create($sformatf("slave[%0d]", i), this);
   end
 
@@ -101,7 +101,7 @@ endfunction : build_phase
 function void apb_env::connect_phase(uvm_phase phase);
   super.connect_phase(phase);
   // Get the virtual interface if set via get_config
-  if (!uvm_config_db#(virtual apb_if)::get(this, "", "vif", vif))
+  if (!uvm_config_db #(virtual apb_if)::get(this, "", "vif", vif))
     `uvm_error("NOVIF",{"virtual interface must be set for: ",get_full_name(),".vif"})
   bus_collector.item_collected_port.connect(bus_monitor.coll_mon_port);
   bus_monitor.addr_trans_port.connect(bus_collector.addr_trans_export);
@@ -110,7 +110,7 @@ function void apb_env::connect_phase(uvm_phase phase);
   master.collector.set_report_verbosity_level(UVM_NONE);
   //master.monitor = bus_monitor;
   //master.collector = bus_collector;
-  foreach(slaves[i]) begin
+  foreach (slaves[i]) begin
     //slaves[i].monitor = bus_monitor;
     //slaves[i].collector = bus_collector;
     // Set verbosity level so you don't get so much data in the log file.
@@ -133,7 +133,7 @@ function void apb_env::update_config(apb_config cfg);
   bus_monitor.cfg = cfg;
   bus_collector.cfg = cfg;
   master.update_config(cfg);
-  foreach(slaves[i])
+  foreach (slaves[i])
     slaves[i].update_config(cfg.slave_configs[i]);
 endfunction : update_config
 

@@ -1,6 +1,6 @@
 /*******************************************************************************
-  FILE : apb_slave_driver.sv
-*******************************************************************************/
+ FILE : apb_slave_driver.sv
+ *******************************************************************************/
 //   Copyright 1999-2010 Cadence Design Systems, Inc.
 //   All Rights Reserved Worldwide
 //
@@ -21,7 +21,7 @@
 
 
 `ifndef APB_SLAVE_DRIVER_SV
-`define APB_SLAVE_DRIVER_SV
+  `define APB_SLAVE_DRIVER_SV
 
 //------------------------------------------------------------------------------
 // CLASS: apb_slave_driver declaration
@@ -36,7 +36,7 @@ class apb_slave_driver extends uvm_driver #(apb_transfer);
   `uvm_component_utils(apb_slave_driver)
 
   // Constructor
-  function new (string name, uvm_component parent);
+  function new(string name, uvm_component parent);
     super.new(name, parent);
   endfunction : new
 
@@ -52,8 +52,8 @@ endclass : apb_slave_driver
 // UVM connect_phase - gets the vif as a config property
 function void apb_slave_driver::connect_phase(uvm_phase phase);
   super.connect_phase(phase);
-    if (!uvm_config_db#(virtual apb_if)::get(this, "", "vif", vif))
-      `uvm_error("NOVIF",{"virtual interface must be set for: ",get_full_name(),".vif"})
+  if (!uvm_config_db #(virtual apb_if)::get(this, "", "vif", vif))
+    `uvm_error("NOVIF",{"virtual interface must be set for: ",get_full_name(),".vif"})
 endfunction : connect_phase
 
 // Externed virtual declaration of the run_phase method.  This method
@@ -88,7 +88,7 @@ task apb_slave_driver::reset_signals();
   end
 endtask : reset_signals
 
-  // This task drives the response phases of a transfer.
+// This task drives the response phases of a transfer.
 task apb_slave_driver::respond_to_transfer(apb_transfer resp);
   begin
     vif.pready <= 1'b1;

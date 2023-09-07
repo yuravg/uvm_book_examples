@@ -1,6 +1,6 @@
 /*******************************************************************************
-  FILE : apb_slave_sequencer.sv
-*******************************************************************************/
+ FILE : apb_slave_sequencer.sv
+ *******************************************************************************/
 //   Copyright 1999-2010 Cadence Design Systems, Inc.
 //   All Rights Reserved Worldwide
 //
@@ -19,9 +19,9 @@
 //   permissions and limitations under the License.
 //----------------------------------------------------------------------
 
-                                                                                
+
 `ifndef APB_SLAVE_SEQUENCER_SV
-`define APB_SLAVE_SEQUENCER_SV
+  `define APB_SLAVE_SEQUENCER_SV
 
 //------------------------------------------------------------------------------
 // CLASS: apb_slave_sequencer declaration
@@ -29,7 +29,7 @@
 
 class apb_slave_sequencer extends uvm_sequencer #(apb_transfer);
 
-  uvm_blocking_peek_port#(apb_transfer) addr_trans_port;
+  uvm_blocking_peek_port #(apb_transfer) addr_trans_port;
 
   apb_slave_config cfg;
 
@@ -39,16 +39,16 @@ class apb_slave_sequencer extends uvm_sequencer #(apb_transfer);
   `uvm_component_utils_end
 
   // Constructor
-  function new (string name, uvm_component parent);
+  function new(string name, uvm_component parent);
     super.new(name, parent);
     addr_trans_port = new("addr_trans_port", this);
   endfunction : new
 
   virtual function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    if(cfg == null)
-      if (!uvm_config_db#(apb_slave_config)::get(this, "", "cfg", cfg))
-      `uvm_error("NOCONFIG", "No configuration set")
+    if (cfg == null)
+      if (!uvm_config_db #(apb_slave_config)::get(this, "", "cfg", cfg))
+        `uvm_error("NOCONFIG", "No configuration set")
   endfunction : build_phase
 
 endclass : apb_slave_sequencer

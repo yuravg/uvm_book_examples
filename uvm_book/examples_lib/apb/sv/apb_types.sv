@@ -1,6 +1,6 @@
 /*******************************************************************************
-  FILE : apb_types.sv
-*******************************************************************************/
+ FILE : apb_types.sv
+ *******************************************************************************/
 //   Copyright 1999-2010 Cadence Design Systems, Inc.
 //   All Rights Reserved Worldwide
 //
@@ -22,4 +22,4 @@
 
 //------------------------------------------------------------------------------
 // apb transfer enums, parameters, and events
-typedef enum bit { APB_READ = 0, APB_WRITE = 1 } apb_direction_enum;
+typedef enum bit {APB_READ = 0, APB_WRITE = 1} apb_direction_enum;

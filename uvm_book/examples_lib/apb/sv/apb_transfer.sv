@@ -1,6 +1,6 @@
 /*******************************************************************************
-  FILE : apb_transfer.svh
-*******************************************************************************/
+ FILE : apb_transfer.svh
+ *******************************************************************************/
 //   Copyright 1999-2010 Cadence Design Systems, Inc.
 //   All Rights Reserved Worldwide
 //
@@ -24,7 +24,7 @@
 // CLASS: apb_transfer declaration
 //------------------------------------------------------------------------------
 
-class apb_transfer extends uvm_sequence_item;                                  
+class apb_transfer extends uvm_sequence_item;
 
   rand bit [31:0]           addr;
   rand apb_direction_enum   direction;
@@ -32,10 +32,10 @@ class apb_transfer extends uvm_sequence_item;
   rand int unsigned         transmit_delay;
   string                    master;
   string                    slave;
-   
-  constraint c_direction { direction inside { APB_READ, APB_WRITE }; }
- 
-  constraint c_transmit_delay { transmit_delay <= 10 ; }
+
+  constraint c_direction {direction inside {APB_READ, APB_WRITE};}
+
+  constraint c_transmit_delay {transmit_delay <= 10 ;}
 
   `uvm_object_utils_begin(apb_transfer)
     `uvm_field_int(addr, UVM_DEFAULT)
@@ -45,8 +45,8 @@ class apb_transfer extends uvm_sequence_item;
     `uvm_field_string(slave, UVM_DEFAULT|UVM_NOCOMPARE)
   `uvm_object_utils_end
 
-  function new (string name = "apb_transfer");
+  function new(string name = "apb_transfer");
     super.new(name);
-  endfunction
+  endfunction : new
 
 endclass : apb_transfer

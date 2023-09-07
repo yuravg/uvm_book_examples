@@ -1,6 +1,6 @@
 /*******************************************************************************
-  FILE : apb_slave_seq_lib.sv
-*******************************************************************************/
+ FILE : apb_slave_seq_lib.sv
+ *******************************************************************************/
 //   Copyright 1999-2010 Cadence Design Systems, Inc.
 //   All Rights Reserved Worldwide
 //
@@ -21,7 +21,7 @@
 
 
 `ifndef APB_SLAVE_SEQ_LIB_SV
-`define APB_SLAVE_SEQ_LIB_SV
+  `define APB_SLAVE_SEQ_LIB_SV
 
 //------------------------------------------------------------------------------
 // SEQUENCE: simple_response_seq
@@ -31,7 +31,7 @@ class simple_response_seq extends uvm_sequence #(apb_transfer);
 
   function new(string name="simple_response_seq");
     super.new(name);
-  endfunction
+  endfunction : new
 
   `uvm_object_utils(simple_response_seq)
   `uvm_declare_p_sequencer(apb_slave_sequencer)
@@ -43,10 +43,10 @@ class simple_response_seq extends uvm_sequence #(apb_transfer);
     `uvm_info(get_type_name(), "Starting...", UVM_MEDIUM)
     forever begin
       p_sequencer.addr_trans_port.peek(util_transfer);
-      if((util_transfer.direction == APB_READ) && 
-        (p_sequencer.cfg.check_address_range(util_transfer.addr) == 1)) begin
+      if ((util_transfer.direction == APB_READ) &&
+          (p_sequencer.cfg.check_address_range(util_transfer.addr) == 1)) begin
         `uvm_info(get_type_name(), $sformatf("Address:%h Range Matching read.  Responding...", util_transfer.addr), UVM_MEDIUM);
-        `uvm_do_with(req, { req.direction == APB_READ; } )
+        `uvm_do_with(req, {req.direction == APB_READ;})
       end
     end
   endtask : body
@@ -60,7 +60,7 @@ class mem_response_seq extends uvm_sequence #(apb_transfer);
 
   function new(string name="mem_response_seq");
     super.new(name);
-  endfunction
+  endfunction : new
 
   rand logic [7:0] mem_data;
 
@@ -77,28 +77,28 @@ class mem_response_seq extends uvm_sequence #(apb_transfer);
     `uvm_info(get_type_name(), "Starting...", UVM_MEDIUM)
     forever begin
       p_sequencer.addr_trans_port.peek(util_transfer);
-      if((util_transfer.direction == APB_READ) && 
-        (p_sequencer.cfg.check_address_range(util_transfer.addr) == 1)) begin
+      if ((util_transfer.direction == APB_READ) &&
+          (p_sequencer.cfg.check_address_range(util_transfer.addr) == 1)) begin
         `uvm_info(get_type_name(), $sformatf("Address:%h Range Matching APB_READ.  Responding...", util_transfer.addr), UVM_MEDIUM);
         if (slave_mem.exists(util_transfer.addr))
-        `uvm_do_with(req, { req.direction == APB_READ;
-                            req.addr == util_transfer.addr;
-                            req.data == slave_mem[util_transfer.addr]; } )
+          `uvm_do_with(req, {req.direction == APB_READ;
+                             req.addr == util_transfer.addr;
+                             req.data == slave_mem[util_transfer.addr];})
         else  begin
-        `uvm_do_with(req, { req.direction == APB_READ;
-                            req.addr == util_transfer.addr;
-                            req.data == mem_data; } )
-         mem_data++; 
+          `uvm_do_with(req, {req.direction == APB_READ;
+                             req.addr == util_transfer.addr;
+                             req.data == mem_data;})
+          mem_data++;
         end
       end
       else begin
         if (p_sequencer.cfg.check_address_range(util_transfer.addr) == 1) begin
-        slave_mem[util_transfer.addr] = util_transfer.data;
-        // DUMMY response with same information
-        `uvm_do_with(req, { req.direction == APB_WRITE;
-                            req.addr == util_transfer.addr;
-                            req.data == util_transfer.data; } )
-       end
+          slave_mem[util_transfer.addr] = util_transfer.data;
+          // DUMMY response with same information
+          `uvm_do_with(req, {req.direction == APB_WRITE;
+                             req.addr == util_transfer.addr;
+                             req.data == util_transfer.data;})
+        end
       end
     end
   endtask : body

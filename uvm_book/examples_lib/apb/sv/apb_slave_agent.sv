@@ -1,6 +1,6 @@
 /*******************************************************************************
-  FILE : apb_slave_agent.sv
-*******************************************************************************/
+ FILE : apb_slave_agent.sv
+ *******************************************************************************/
 //   Copyright 1999-2010 Cadence Design Systems, Inc.
 //   All Rights Reserved Worldwide
 //
@@ -21,7 +21,7 @@
 
 
 `ifndef APB_SLAVE_AGENT_SV
-`define APB_SLAVE_AGENT_SV
+  `define APB_SLAVE_AGENT_SV
 
 //------------------------------------------------------------------------------
 // CLASS: apb_slave_agent
@@ -52,7 +52,7 @@ class apb_slave_agent extends uvm_agent;
   `uvm_component_utils_end
 
   // new - constructor
-  function new (string name, uvm_component parent);
+  function new(string name, uvm_component parent);
     super.new(name, parent);
   endfunction : new
 
@@ -68,10 +68,10 @@ function void apb_slave_agent::build_phase(uvm_phase phase);
   super.build_phase(phase);
   // Get the configuration information for this component
   if (cfg == null) begin
-    if (!uvm_config_db#(apb_slave_config)::get(this, "", "cfg", cfg))
-     `uvm_warning("NOCONFIG",
-         "Config not set for slave agent using default is_active")
-    end
+    if (!uvm_config_db #(apb_slave_config)::get(this, "", "cfg", cfg))
+      `uvm_warning("NOCONFIG",
+                   "Config not set for slave agent using default is_active")
+  end
   else is_active = cfg.is_active;
   monitor = apb_monitor::type_id::create("monitor",this);
   collector = apb_collector::type_id::create("collector",this);
@@ -82,7 +82,7 @@ function void apb_slave_agent::build_phase(uvm_phase phase);
   end
 endfunction : build_phase
 
-// update_config() 
+// update_config()
 function void apb_slave_agent::update_config(input apb_slave_config cfg);
   if (is_active == UVM_ACTIVE) begin
     sequencer.cfg = cfg;
@@ -92,10 +92,10 @@ endfunction : update_config
 // UVM connect_phase
 function void apb_slave_agent::connect_phase(uvm_phase phase);
   // Get the agents virtual interface if set via get_config
-  if (!uvm_config_db#(virtual apb_if)::get(this, "", "vif", vif))
+  if (!uvm_config_db #(virtual apb_if)::get(this, "", "vif", vif))
     `uvm_error("NOVIF",{"virtual interface must be set for: ",get_full_name(),".vif"})
   // If the vif was set to the agent, apply it to its children
-  uvm_config_db#(virtual apb_if)::set(this, "*", "vif", vif);
+  uvm_config_db #(virtual apb_if)::set(this, "*", "vif", vif);
 
   collector.item_collected_port.connect(monitor.coll_mon_port);
   monitor.addr_trans_port.connect(collector.addr_trans_export);
