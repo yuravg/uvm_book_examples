@@ -139,7 +139,6 @@ module test;
     endfunction : new
 
     function void build_phase(uvm_phase phase);
-      super.build_phase(phase);
       uvm_config_wrapper::set(this, "l_sequencer.run_phase", "default_sequence", upper_to_lower_seq::get_type());
       l_driver = lower_driver::type_id::create("l_driver", this);
       l_sequencer = lower_sequencer::type_id::create("l_sequencer", this);
@@ -147,7 +146,6 @@ module test;
     endfunction : build_phase
 
     function void connect_phase(uvm_phase phase);
-      super.connect_phase(phase);
       l_driver.seq_item_port.connect(l_sequencer.seq_item_export);
       l_driver.rsp_port.connect(l_sequencer.rsp_export);
       l_sequencer.upper_seq_item_port.connect(u_sequencer.seq_item_export);
