@@ -1,13 +1,13 @@
 /*-------------------------------------------------------------------------
-File name   : uart_ctrl_monitor.sv
-Title       : UART Controller Monitor
-Project     :
-Created     :
-Description : Module monitor
-Notes       : 
-----------------------------------------------------------------------
-Copyright 2007 (c) Cadence Design Systems, Inc. All Rights Reserved.
-----------------------------------------------------------------------*/
+ File name   : uart_ctrl_monitor.sv
+ Title       : UART Controller Monitor
+ Project     :
+ Created     :
+ Description : Module monitor
+ Notes       :
+ ----------------------------------------------------------------------
+ Copyright 2007 (c) Cadence Design Systems, Inc. All Rights Reserved.
+ ----------------------------------------------------------------------*/
 // TLM Port Declarations
 `uvm_analysis_imp_decl(_rx)
 `uvm_analysis_imp_decl(_tx)
@@ -40,23 +40,23 @@ class uart_ctrl_monitor extends uvm_monitor;
   uvm_analysis_imp_cfg #(uart_config, uart_ctrl_monitor) uart_cfg_in;
 
   // TLM Connections to other Components (Scoreboard, updated config)
-//  uvm_analysis_port #(uart_config) uart_cfg_out;
+  //  uvm_analysis_port #(uart_config) uart_cfg_out;
   uvm_analysis_port #(apb_transfer) apb_out;
   uvm_analysis_port #(uart_frame) uart_rx_out;
   uvm_analysis_port #(uart_frame) uart_tx_out;
 
   `uvm_component_utils(uart_ctrl_monitor)
 
-  function new (string name = "", uvm_component parent = null);
+  function new(string name = "", uvm_component parent = null);
     super.new(name, parent);
     create_tlm_ports(); // Create TLM Ports
-  endfunction: new
+  endfunction : new
 
   task run();
     @(posedge vif.clock) clk_period = $time;
     @(posedge vif.clock) clk_period = $time - clk_period;
   endtask : run
- 
+
   // Additional class methods
   extern virtual function void create_tlm_ports();
   extern virtual function void build();
@@ -78,7 +78,7 @@ function void uart_ctrl_monitor::create_tlm_ports();
   uart_rx_out = new("uart_rx_out", this);
   uart_tx_in = new("uart_tx_in", this);
   uart_tx_out = new("uart_tx_out", this);
-endfunction: create_tlm_ports
+endfunction : create_tlm_ports
 
 function void uart_ctrl_monitor::build();
   super.build();
@@ -92,11 +92,11 @@ function void uart_ctrl_monitor::build();
   tx_scbd = uart_ctrl_tx_scbd::type_id::create("tx_scbd",this);
   rx_scbd = uart_ctrl_rx_scbd::type_id::create("rx_scbd",this);
 
-//chenthil
-// tx_scbd.slave_cfg = cfg;
-// rx_scbd.slave_cfg = cfg;
+  //chenthil
+  // tx_scbd.slave_cfg = cfg;
+  // rx_scbd.slave_cfg = cfg;
 endfunction : build
-   
+
 function void uart_ctrl_monitor::connect();
   super.connect();
   apb_out.connect(tx_scbd.apb_match);
@@ -108,9 +108,9 @@ endfunction : connect
 // implement UART Rx analysis port
 function void uart_ctrl_monitor::write_rx(uart_frame frame);
   uart_rx_out.write(frame);
-  rx_time_q.push_front($time); 
+  rx_time_q.push_front($time);
 endfunction : write_rx
-   
+
 // implement UART Tx analysis port
 function void uart_ctrl_monitor::write_tx(uart_frame frame);
   uart_tx_out.write(frame);
@@ -120,42 +120,42 @@ endfunction : write_tx
 
 // implement UART Config analysis port
 function void uart_ctrl_monitor::write_cfg(uart_config uart_cfg);
-   set_uart_config(uart_cfg);
+  set_uart_config(uart_cfg);
 endfunction : write_cfg
 
-  // implement APB analysis port 
+// implement APB analysis port
 function void uart_ctrl_monitor::write_apb(apb_transfer transfer);
-// chenthil  if (transfer.addr ==  cfg.apb_cfg.slave_configs[0].start_address + 'h00) 
-    apb_out.write(transfer);
+  // chenthil  if (transfer.addr ==  cfg.apb_cfg.slave_configs[0].start_address + 'h00)
+  apb_out.write(transfer);
   if ((transfer.direction == APB_READ)  && (transfer.addr == `RX_FIFO_REG))
-     begin
-       rx_time_in = rx_time_q.pop_back();
-       rx_time_out = ($time-rx_time_in)/clk_period;
-     end
+  begin
+    rx_time_in = rx_time_q.pop_back();
+    rx_time_out = ($time-rx_time_in)/clk_period;
+  end
   else if ((transfer.direction == APB_WRITE)  && (transfer.addr == `TX_FIFO_REG))
-     begin
-       tx_time_q.push_front($time); 
-     end
-    
+  begin
+    tx_time_q.push_front($time);
+  end
+
 endfunction : write_apb
 
 function void uart_ctrl_monitor::update_config(uart_ctrl_config uart_ctrl_cfg);
   `uvm_info(get_type_name(), {"Updating Config\n", uart_ctrl_cfg.sprint}, UVM_HIGH)
-   cfg = uart_ctrl_cfg;
-   tx_scbd.slave_cfg = uart_ctrl_cfg.apb_cfg.slave_configs[0];
-   tx_scbd.uart_cfg = uart_ctrl_cfg.uart_cfg;
-   rx_scbd.slave_cfg = uart_ctrl_cfg.apb_cfg.slave_configs[0];
-   rx_scbd.uart_cfg = uart_ctrl_cfg.uart_cfg;
+  cfg = uart_ctrl_cfg;
+  tx_scbd.slave_cfg = uart_ctrl_cfg.apb_cfg.slave_configs[0];
+  tx_scbd.uart_cfg = uart_ctrl_cfg.uart_cfg;
+  rx_scbd.slave_cfg = uart_ctrl_cfg.apb_cfg.slave_configs[0];
+  rx_scbd.uart_cfg = uart_ctrl_cfg.uart_cfg;
 endfunction : update_config
 
 function void uart_ctrl_monitor::set_slave_config(apb_slave_config slave_cfg);
-   cfg.apb_cfg.slave_configs[0] = slave_cfg;
-   tx_scbd.slave_cfg = slave_cfg;
-   rx_scbd.slave_cfg = slave_cfg;
+  cfg.apb_cfg.slave_configs[0] = slave_cfg;
+  tx_scbd.slave_cfg = slave_cfg;
+  rx_scbd.slave_cfg = slave_cfg;
 endfunction : set_slave_config
 
 function void uart_ctrl_monitor::set_uart_config(uart_config uart_cfg);
-   cfg.uart_cfg     = uart_cfg;
-   tx_scbd.uart_cfg = uart_cfg;
-   rx_scbd.uart_cfg = uart_cfg;
+  cfg.uart_cfg     = uart_cfg;
+  tx_scbd.uart_cfg = uart_cfg;
+  rx_scbd.uart_cfg = uart_cfg;
 endfunction : set_uart_config
