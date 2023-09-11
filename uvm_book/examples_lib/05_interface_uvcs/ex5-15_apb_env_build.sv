@@ -28,7 +28,6 @@ module test;
   // UVM build_phase
   function void apb_env::build_phase(uvm_phase phase);
     uvm_object config_obj;
-    super.build_phase(phase);
 
     // Get or create the APB UVC configuration class
     if (cfg == null)
@@ -62,7 +61,6 @@ module test;
       super.new(name, parent);
     endfunction : new
     virtual function void build_phase(uvm_phase phase);
-      super.build_phase(phase);
       apb0 = apb_env::type_id::create("apb0", this);
     endfunction : build_phase
   endclass : demo_tb

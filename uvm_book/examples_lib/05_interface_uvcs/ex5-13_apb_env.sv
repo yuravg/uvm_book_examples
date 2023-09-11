@@ -42,13 +42,12 @@ module test;
 
     // Additional class methods
     extern virtual function void build_phase(uvm_phase phase);
-  extern virtual function void connect_phase(uvm_phase phase);
-endclass : apb_env
+    extern virtual function void connect_phase(uvm_phase phase);
+  endclass : apb_env
 
   // UVM build_phase
   function void apb_env::build_phase(uvm_phase phase);
     uvm_object config_obj;
-    super.build_phase(phase);
 
     // Get or create the APB UVC configuration class
     if (cfg == null)
@@ -74,7 +73,6 @@ endclass : apb_env
   endfunction : build_phase
 
   function void apb_env::connect_phase(uvm_phase phase);
-    super.connect_phase(phase);
     bus_collector.item_collected_port.connect(bus_monitor.coll_mon_port);
     bus_monitor.addr_trans_port.connect(bus_collector.addr_trans_export);
     foreach (slaves[i]) begin
@@ -92,7 +90,6 @@ endclass : apb_env
       super.new(name, parent);
     endfunction : new
     virtual function void build_phase(uvm_phase phase);
-      super.build_phase(phase);
       apb0 = apb_env::type_id::create("apb0", this);
     endfunction : build_phase
   endclass : demo_tb

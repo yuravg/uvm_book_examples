@@ -45,7 +45,6 @@ module test;
     endfunction : new
 
     virtual function void build_phase(uvm_phase phase);
-      super.build_phase(phase);
       demo_cfg = demo_config::type_id::create("demo_cfg");
       uvm_config_object::set(this, "apb0", "cfg", demo_cfg);
       apb0 = apb_env::type_id::create("apb0", this);

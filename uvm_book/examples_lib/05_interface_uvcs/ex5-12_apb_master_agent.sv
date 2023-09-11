@@ -47,7 +47,6 @@ endclass : apb_master_agent
 
 // UVM build_phase()
 function void apb_master_agent::build_phase(uvm_phase phase);
-  super.build_phase(phase);
   // Always create the collector and monitor
   monitor = apb_monitor::type_id::create("monitor", this);
   collector = apb_collector::type_id::create("collector", this);
@@ -59,7 +58,6 @@ endfunction : build_phase
 
 //Use UVM connect_phase() to connect the component TLM ports
 function void apb_master_agent::connect_phase(uvm_phase phase);
-  super.connect_phase(phase);
   collector.item_collected_port.connect(monitor.coll_mon_port);
   if (is_active == UVM_ACTIVE) begin
     // Connect the driver to the sequencer using TLM interface
