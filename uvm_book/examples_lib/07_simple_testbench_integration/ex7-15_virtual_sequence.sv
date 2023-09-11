@@ -1,16 +1,16 @@
 /****************************************************************
-  Example 7-14: UART Controller Virtual Sequence
+ Example 7-14: UART Controller Virtual Sequence
 
-  No testcase for this example.  Please run the full example
-****************************************************************/
+ No testcase for this example.  Please run the full example
+ ****************************************************************/
 
 class u2a_a2u_vseq extends base_vseq;
 
   function new(string name="u2a_a2u_vseq");
-      super.new(name);
+    super.new(name);
   endfunction : new
 
- `uvm_object_utils(u2a_a2u_vseq)
+  `uvm_object_utils(u2a_a2u_vseq)
 
   // APB sequences
   apb_config_seq config_seq;
