@@ -1,10 +1,10 @@
 /****************************************************************
-  Example 8-2: Handling interrupts using Sequences
+ Example 8-2: Handling interrupts using Sequences
 
   To run:   %  irun -uvm  \
                -incdir ../7_simple_testbench_integration/apb \
                ex8-2_interrupt_sequence.sv
-****************************************************************/
+ ****************************************************************/
 import uvm_pkg::*;
 `include "uvm_macros.svh"
 `include "sv/apb_types.sv"
@@ -44,23 +44,23 @@ class interrupt_handler_seq extends uvm_sequence #(apb_transfer);
   // Sequence body
   virtual task body();
     forever begin
-     @(p_sequencer.interrupt);
-     `uvm_info("INTERRUPT_SEQ", "Executing Sequence", UVM_LOW)
-     grab(p_sequencer);
-     `uvm_do(interrupt_reset_seq)
-     ungrab(p_sequencer);
+      @(p_sequencer.interrupt);
+      `uvm_info("INTERRUPT_SEQ", "Executing Sequence", UVM_LOW)
+      grab(p_sequencer);
+      `uvm_do(interrupt_reset_seq)
+      ungrab(p_sequencer);
     end
   endtask : body
 
   // Constructor
   function new(string name="interrupt_handler_seq");
     super.new(name);
-  endfunction
+  endfunction : new
 
 endclass : interrupt_handler_seq
 
 class apb_master_sequencer extends uvm_sequencer #(apb_transfer);
- 
+
   `uvm_component_utils(apb_master_sequencer)
 
   interrupt_handler_seq interrupt_seq;
