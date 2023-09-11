@@ -46,7 +46,6 @@ endclass : demo_tb
 
 // UVM build() phase
 function void demo_tb::build_phase(uvm_phase phase);
-  super.build_phase(phase);
   // Create the configuration object
   demo_cfg = demo_config::type_id::create("demo_cfg");
   if (!demo_cfg.randomize()) `uvm_error("RNDFAIL", "Demo Config Randomization")

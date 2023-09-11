@@ -29,7 +29,6 @@ class demo_base_test extends uvm_test;
   endfunction : new
 
   virtual function void build_phase(uvm_phase phase);
-    super.build_phase(phase);
     // Enable transaction recording for everything
     //set_config_int("*", "recording_detail", UVM_FULL);
     // Create the tb
