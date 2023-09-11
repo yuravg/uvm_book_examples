@@ -1,11 +1,11 @@
 /*-------------------------------------------------------------------------
-File name   : uart_env.sv
-Title       : UART UVC env file 
-Project     :
-Created     :
-Description : Creates and configures the UART UVC
-Notes       :  
-----------------------------------------------------------------------*/
+ File name   : uart_env.sv
+ Title       : UART UVC env file
+ Project     :
+ Created     :
+ Description : Creates and configures the UART UVC
+ Notes       :
+ ----------------------------------------------------------------------*/
 //   Copyright 1999-2010 Cadence Design Systems, Inc.
 //   All Rights Reserved Worldwide
 //
@@ -26,7 +26,7 @@ Notes       :
 
 
 `ifndef UART_ENV_SVH
-`define UART_ENV_SVH
+  `define UART_ENV_SVH
 
 class uart_env extends uvm_env;
 
@@ -37,13 +37,13 @@ class uart_env extends uvm_env;
   uart_config cfg;         // UART configuration object
   bit checks_enable = 1;
   bit coverage_enable = 1;
-   
+
   // Components of the environment
   uart_tx_agent Tx;
   uart_rx_agent Rx;
 
   // Used to update the config when it is updated during simulation
-  uvm_analysis_imp#(uart_config, uart_env) dut_cfg_port_in;
+  uvm_analysis_imp #(uart_config, uart_env) dut_cfg_port_in;
 
   // This macro provide implementation of get_type_name() and create()
   `uvm_component_utils_begin(uart_env)
@@ -53,10 +53,10 @@ class uart_env extends uvm_env;
   `uvm_component_utils_end
 
   // Constructor - required UVM syntax
-  function new( string name, uvm_component parent);
+  function new(string name, uvm_component parent);
     super.new(name, parent);
     dut_cfg_port_in = new("dut_cfg_port_in", this);
-  endfunction
+  endfunction : new
 
   // Additional class methods
   extern virtual function void build_phase(uvm_phase phase);
@@ -72,12 +72,12 @@ endclass : uart_env
 function void uart_env::build_phase(uvm_phase phase);
   super.build_phase(phase);
   // Configure
-  if ( cfg == null)
-    if (!uvm_config_db#(uart_config)::get(this, "", "cfg", cfg)) begin
+  if (cfg == null)
+    if (!uvm_config_db #(uart_config)::get(this, "", "cfg", cfg)) begin
       `uvm_info("NOCONFIG", "No uart_config, creating...", UVM_MEDIUM)
       cfg = uart_config::type_id::create("cfg", this);
       if (!cfg.randomize())
-         `uvm_error("RNDFAIL", "Could not randomize uart_config using default values")
+        `uvm_error("RNDFAIL", "Could not randomize uart_config using default values")
       `uvm_info(get_type_name(), {"Printing cfg:\n", cfg.sprint()}, UVM_MEDIUM)
     end
   // Configure the sub-components
@@ -93,7 +93,7 @@ endfunction : build_phase
 function void uart_env::connect_phase(uvm_phase phase);
   super.connect_phase(phase);
   // Get the agent's virtual interface if set via config
-  if(!uvm_config_db#(virtual uart_if)::get(this, "", "vif", vif))
+  if (!uvm_config_db #(virtual uart_if)::get(this, "", "vif", vif))
     `uvm_error("NOVIF",{"virtual interface must be set for: ",get_full_name(),".vif"})
 endfunction : connect_phase
 
@@ -111,21 +111,21 @@ endtask : update_vif_enables
 
 // UVM run_phase
 task uart_env::run_phase(uvm_phase phase);
-  fork 
-    update_vif_enables(); 
+  fork
+    update_vif_enables();
   join
 endtask : run_phase
-  
+
 // Update the config when RGM updates?
-function void uart_env::write(input uart_config cfg );
+function void uart_env::write(input uart_config cfg);
   this.cfg = cfg;
   update_config(cfg);
 endfunction : write
 
 // Update Agent config when config updates
-function void uart_env::update_config(input uart_config cfg );
+function void uart_env::update_config(input uart_config cfg);
   Tx.update_config(cfg);
-  Rx.update_config(cfg);   
+  Rx.update_config(cfg);
 endfunction : update_config
 
 `endif
