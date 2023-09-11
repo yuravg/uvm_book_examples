@@ -67,7 +67,6 @@ endclass : uart_rx_driver
 
 // UVM build_phase
 function void uart_rx_driver::build_phase(uvm_phase phase);
-  super.build_phase(phase);
   if (cfg == null)
     if (!uvm_config_db #(uart_config)::get(this, "", "cfg", cfg))
       `uvm_error("NOCONFIG", "uart_config not set for this component")
@@ -75,7 +74,6 @@ endfunction : build_phase
 
 //UVM connect_phase
 function void uart_rx_driver::connect_phase(uvm_phase phase);
-  super.connect_phase(phase);
   if (!uvm_config_db #(virtual uart_if)::get(this, "", "vif", vif))
     `uvm_error("NOVIF",{"virtual interface must be set for: ",get_full_name(),".vif"})
 endfunction : connect_phase
