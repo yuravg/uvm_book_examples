@@ -1,13 +1,13 @@
 /****************************************************************
-  Example 9-1: Register to APB Adapter for the UART Controller
+ Example 9-1: Register to APB Adapter for the UART Controller
 
-  To run:   %  irun -uvm ex9-1_reg_to_apb_adapter.sv
+ To run:   %  irun -uvm ex9-1_reg_to_apb_adapter.sv
 
-  OR:       %  irun -uvmhome $UVM_HOME ex9-1_reg_to_apb_adapter.sv
+ OR:       %  irun -uvmhome $UVM_HOME ex9-1_reg_to_apb_adapter.sv
 
-NOTE: This class is packaged with the APB UVC in the apb/sv
-      directory: reg_to_apb_adapter.sv
-****************************************************************/
+ NOTE: This class is packaged with the APB UVC in the apb/sv
+ directory: reg_to_apb_adapter.sv
+ ****************************************************************/
 import uvm_pkg::*;
 `include "uvm_macros.svh"
 
@@ -16,7 +16,7 @@ import uvm_pkg::*;
 
 class reg_to_apb_adapter extends uvm_reg_adapter;
 
-`uvm_object_utils(reg_to_apb_adapter)
+  `uvm_object_utils(reg_to_apb_adapter)
 
   function new(string name="reg_to_apb_adapter");
     super.new(name);
@@ -41,14 +41,14 @@ class reg_to_apb_adapter extends uvm_reg_adapter;
     apb_transfer transfer;
     if (!$cast(transfer, bus_item)) begin
       `uvm_fatal("NOT_REG_TYPE",
-       "Provided bus_item is not of the correct type. Expecting apb_transfer")
-       return;
+                 "Provided bus_item is not of the correct type. Expecting apb_transfer")
+      return;
     end
     rw.kind =  (transfer.direction == APB_READ) ? UVM_READ : UVM_WRITE;
     rw.addr = transfer.addr;
     rw.data = transfer.data;
-    //rw.byte_en = 'h0;   // Set this to -1 or DO NOT SET IT AT ALL - 
+    //rw.byte_en = 'h0;   // Set this to -1 or DO NOT SET IT AT ALL -
     rw.status = UVM_IS_OK;
-  endfunction  : bus2reg
+  endfunction : bus2reg
 
 endclass : reg_to_apb_adapter

@@ -6,8 +6,8 @@
 // Generated rdb.sv by executing:
 //   %  runreg -i ex9-3_ua_simple_regs.xml -nc -uvm11a
 //////////////////////////////////////////////////////////////////////
-// Register definition 
-////////////////////////////////////////////////////////////////////// 
+// Register definition
+//////////////////////////////////////////////////////////////////////
 class ua_lcr_c extends uvm_reg;
 
   rand uvm_reg_field char_lngth;
@@ -18,8 +18,8 @@ class ua_lcr_c extends uvm_reg;
   rand uvm_reg_field break_ctrl;
   rand uvm_reg_field div_latch_access;
 
-  constraint c_char_lngth { char_lngth.value != 2'b00; }
-  constraint c_break_ctrl { break_ctrl.value == 1'b0; }
+  constraint c_char_lngth {char_lngth.value != 2'b00;}
+  constraint c_break_ctrl {break_ctrl.value == 1'b0;}
   virtual function void build();
     char_lngth = uvm_reg_field::type_id::create("char_lngth");
     char_lngth.configure(this, 2, 0, "RW", 0, `UVM_REG_DATA_WIDTH'h03>>0, 1, 1, 1);
@@ -35,7 +35,7 @@ class ua_lcr_c extends uvm_reg;
     break_ctrl.configure(this, 1, 6, "RW", 0, `UVM_REG_DATA_WIDTH'h03>>6, 1, 1, 1);
     div_latch_access = uvm_reg_field::type_id::create("div_latch_access");
     div_latch_access.configure(this, 1, 7, "RW", 0, `UVM_REG_DATA_WIDTH'h03>>7, 1, 1, 1);
-  endfunction
+  endfunction : build
 
   `uvm_register_cb(ua_lcr_c, uvm_reg_cbs)
   `uvm_set_super_type(ua_lcr_c, uvm_reg)

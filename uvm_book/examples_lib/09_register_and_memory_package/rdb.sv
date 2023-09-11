@@ -1,7 +1,7 @@
-// This file is generated using Cadence iregGen version 13.10.b030 
+// This file is generated using Cadence iregGen version 13.10.b030
 
 `ifndef RDB_SV
-`define RDB_SV
+  `define RDB_SV
 
 // Input File: ex9-3_ua_simple_regs.xml
 
@@ -27,8 +27,8 @@ class ua_lcr_c extends uvm_reg;
   rand uvm_reg_field break_ctrl;
   rand uvm_reg_field div_latch_access;
 
-  constraint c_char_lngth { char_lngth.value != 2'b00; }
-  constraint c_break_ctrl { break_ctrl.value == 1'b0; }
+  constraint c_char_lngth {char_lngth.value != 2'b00;}
+  constraint c_break_ctrl {break_ctrl.value == 1'b0;}
   virtual function void build();
     char_lngth = uvm_reg_field::type_id::create("char_lngth");
     char_lngth.configure(this, 2, 0, "RW", 0, `UVM_REG_DATA_WIDTH'h03>>0, 1, 1, 1);
@@ -44,9 +44,9 @@ class ua_lcr_c extends uvm_reg;
     break_ctrl.configure(this, 1, 6, "RW", 0, `UVM_REG_DATA_WIDTH'h03>>6, 1, 1, 1);
     div_latch_access = uvm_reg_field::type_id::create("div_latch_access");
     div_latch_access.configure(this, 1, 7, "RW", 0, `UVM_REG_DATA_WIDTH'h03>>7, 1, 1, 1);
-  endfunction
+  endfunction : build
 
-  `uvm_register_cb(ua_lcr_c, uvm_reg_cbs) 
+  `uvm_register_cb(ua_lcr_c, uvm_reg_cbs)
   `uvm_set_super_type(ua_lcr_c, uvm_reg)
   `uvm_object_utils(ua_lcr_c)
   function new(input string name="unnamed-ua_lcr_c");
@@ -62,7 +62,7 @@ class uart_ctrl_rf_c extends uvm_reg_block;
 
     // Now create all registers
 
-    ua_lcr = ua_lcr_c::type_id::create("ua_lcr", , get_full_name());
+    ua_lcr = ua_lcr_c::type_id::create("ua_lcr",, get_full_name());
 
     // Now build the registers. Set parent and hdl_paths
 
@@ -71,7 +71,7 @@ class uart_ctrl_rf_c extends uvm_reg_block;
     // Now define address mappings
     default_map = create_map("default_map", 0, 1, UVM_LITTLE_ENDIAN);
     default_map.add_reg(ua_lcr, `UVM_REG_ADDR_WIDTH'h3, "RW");
-  endfunction
+  endfunction : build
 
   `uvm_object_utils(uart_ctrl_rf_c)
   function new(input string name="unnamed-uart_ctrl_rf");
@@ -90,7 +90,7 @@ class uart_ctrl_addr_map_c extends uvm_reg_block;
   function void build();
     // Now define address mappings
     default_map = create_map("default_map", 0, 1, UVM_LITTLE_ENDIAN);
-    uart_ctrl_rf = uart_ctrl_rf_c::type_id::create("uart_ctrl_rf", , get_full_name());
+    uart_ctrl_rf = uart_ctrl_rf_c::type_id::create("uart_ctrl_rf",, get_full_name());
     uart_ctrl_rf.configure(this, "rf1");
     uart_ctrl_rf.build();
     uart_ctrl_rf.lock_model();
@@ -98,11 +98,11 @@ class uart_ctrl_addr_map_c extends uvm_reg_block;
     set_hdl_path_root("addr_map");
     this.lock_model();
     default_map.set_check_on_read();
-  endfunction
+  endfunction : build
   `uvm_object_utils(uart_ctrl_addr_map_c)
   function new(input string name="unnamed-uart_ctrl_addr_map_c");
     super.new(name, UVM_NO_COVERAGE);
-  endfunction
+  endfunction : new
 endclass : uart_ctrl_addr_map_c
 
 `endif // RDB_SV
