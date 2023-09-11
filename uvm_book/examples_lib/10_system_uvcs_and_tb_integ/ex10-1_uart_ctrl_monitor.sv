@@ -75,7 +75,6 @@ function void uart_ctrl_monitor::create_tlm_ports();
 endfunction : create_tlm_ports
 
 function void uart_ctrl_monitor::build_phase(uvm_phase phase);
-  super.build_phase(phase);
   uart_cover = uart_ctrl_cover::type_id::create("uart_cover",this);
 
   // Get the configuration for this component
@@ -95,7 +94,6 @@ function void uart_ctrl_monitor::build_phase(uvm_phase phase);
 endfunction : build_phase
 
 function void uart_ctrl_monitor::connect_phase(uvm_phase phase);
-  super.connect_phase(phase);
   // Get the virtual interface for this component
   if (!uvm_config_db #(virtual uart_ctrl_internal_if)::get(this, "", "vif", vif))
     `uvm_error("NOVIF",{"virtual interface must be set for: ",get_full_name(),".vif"})

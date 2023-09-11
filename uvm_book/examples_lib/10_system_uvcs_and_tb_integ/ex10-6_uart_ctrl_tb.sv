@@ -88,7 +88,6 @@ function void uart_ctrl_tb::start_of_simulation_phase(uvm_phase phase);
 endfunction : start_of_simulation_phase
 
 function void uart_ctrl_tb::build_phase(uvm_phase phase);
-  super.build_phase(phase);
   // Configure UVCs
   if (cfg == null)
     if (!uvm_config_db #(uart_ctrl_config)::get(this, "", "cfg", cfg)) begin
@@ -126,7 +125,6 @@ endfunction : build_phase
 
 // UVM connect_phase
 function void uart_ctrl_tb::connect_phase(uvm_phase phase);
-  super.connect_phase(phase);
   //UVM_REG - set the sequencer and adapter for the register model
   reg_model.default_map.set_sequencer(apb0.master.sequencer, uart_ctrl0.reg2apb);  //
   // ***********************************************************

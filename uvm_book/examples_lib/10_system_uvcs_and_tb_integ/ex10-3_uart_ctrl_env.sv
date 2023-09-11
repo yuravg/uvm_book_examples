@@ -56,7 +56,6 @@ class uart_ctrl_env extends uvm_env;
 endclass : uart_ctrl_env
 
 function void uart_ctrl_env::build_phase(uvm_phase phase);
-  super.build_phase(phase);
   // Get or create the UART CONTROLLER config class
   if (cfg == null) //begin
     if (!uvm_config_db #(uart_ctrl_config)::get(this, "", "cfg", cfg)) begin
@@ -87,7 +86,6 @@ function void uart_ctrl_env::build_phase(uvm_phase phase);
 endfunction : build_phase
 
 function void uart_ctrl_env::connect_phase(uvm_phase phase);
-  super.connect_phase(phase);
   //UVMREG - Connect adapter to register sequencer and predictor
   apb_predictor.map = reg_model.default_map;
   apb_predictor.adapter = reg2apb;

@@ -22,7 +22,6 @@ class uart_ctrl_cover extends  uvm_component;
   `uvm_component_utils_end
 
   function void connect_phase(uvm_phase phase);
-    super.connect_phase(phase);
     if (!uvm_config_db #(virtual uart_ctrl_if)::get(this, get_full_name(),"vif", vif))
       `uvm_fatal("NOVIF",{"virtual interface must be set for: ",get_full_name(),".vif"})
   endfunction : connect_phase
