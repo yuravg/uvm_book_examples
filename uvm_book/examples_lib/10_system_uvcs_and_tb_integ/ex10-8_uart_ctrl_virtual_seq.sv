@@ -1,11 +1,11 @@
 /**********************************************************************
-  Example 10-8: UART Controller Virtual Sequence
+ Example 10-8: UART Controller Virtual Sequence
 
-  %  irun -uvm ex10-8_uart_ctrl_virtual_seq.sv
- 
-  This code came from:
-  Kit Location : $UVM_REF_HOME/soc_verification_libs/sv_cb_ex_lib/uart_ctrl/sv/sequence_lib/uart_ctrl_virtual-seq_lib.sv
-*********************************************************************/
+ %  irun -uvm ex10-8_uart_ctrl_virtual_seq.sv
+
+ This code came from:
+ Kit Location : $UVM_REF_HOME/soc_verification_libs/sv_cb_ex_lib/uart_ctrl/sv/sequence_lib/uart_ctrl_virtual-seq_lib.sv
+ *********************************************************************/
 
 //`include "ex10-7_uart_ctrl_base_vseq.sv"
 
@@ -16,11 +16,11 @@ class concurrent_u2a_a2u_rand_trans_vseq extends base_vseq;
   rand int unsigned num_u2a_wr;
 
   function new(string name="concurrent_u2a_a2u_rand_trans_vseq");
-      super.new(name);
+    super.new(name);
   endfunction : new
 
-  // Register sequence with a sequencer 
- `uvm_object_utils(concurrent_u2a_a2u_rand_trans_vseq)
+  // Register sequence with a sequencer
+  `uvm_object_utils(concurrent_u2a_a2u_rand_trans_vseq)
 
   constraint num_a2u_wr_ct {(num_a2u_wr <= 20);}
   constraint num_u2a_wr_ct {(num_u2a_wr <= 10);}
@@ -35,7 +35,7 @@ class concurrent_u2a_a2u_rand_trans_vseq extends base_vseq;
   // UART sequences
   uart_transmit_seq u2a_seq;
 
-  virtual task body(); 
+  virtual task body();
     `uvm_info("UART_VSEQ", "Executing", UVM_LOW)
     `uvm_info("UART_VSEQ", $sformatf("Number of APB->UART Transaction = %0d", num_a2u_wr), UVM_LOW)
     `uvm_info("UART_VSEQ", $sformatf("Number of UART->APB Transaction = %0d", num_u2a_wr), UVM_LOW)

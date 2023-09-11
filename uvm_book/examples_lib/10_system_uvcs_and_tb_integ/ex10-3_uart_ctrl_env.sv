@@ -1,12 +1,12 @@
 /**********************************************************************
-  Example 10-3: UART Controller Module UVC
+ Example 10-3: UART Controller Module UVC
 
-  Kit Location : $UVM_REF_HOME/soc_verification_libs/sv_cb_ex_lib/uart_ctrl/sv/uart_ctrl_env.sv
-*********************************************************************/
+ Kit Location : $UVM_REF_HOME/soc_verification_libs/sv_cb_ex_lib/uart_ctrl/sv/uart_ctrl_env.sv
+ *********************************************************************/
 
 `include "uart_ctrl_defines.svh"
-class uart_ctrl_env extends uvm_env; 
-  
+class uart_ctrl_env extends uvm_env;
+
   // Component configuration classes
   uart_ctrl_config cfg;
   // These are pointers to config classes above
@@ -23,9 +23,9 @@ class uart_ctrl_env extends uvm_env;
   uart_ctrl_reg_model_c reg_model;
   // Adapter sequence and predictor
   reg_to_apb_adapter reg2apb;   // Adapter Object REG to APB
-  uvm_reg_predictor#(apb_transfer) apb_predictor;  // Precictor - APB to REG
-  
-  // TLM Connections 
+  uvm_reg_predictor #(apb_transfer) apb_predictor;  // Precictor - APB to REG
+
+  // TLM Connections
   uvm_analysis_port #(uart_config) uart_cfg_out;
   uvm_analysis_imp #(apb_transfer, uart_ctrl_env) apb_in;
 
@@ -41,7 +41,7 @@ class uart_ctrl_env extends uvm_env;
     // Create TLM ports
     uart_cfg_out = new("uart_cfg_out", this);
     apb_in = new("apb_in", this);
-  endfunction
+  endfunction : new
 
   // Additional class methods
   extern virtual function void build_phase(uvm_phase phase);
@@ -59,19 +59,19 @@ function void uart_ctrl_env::build_phase(uvm_phase phase);
   super.build_phase(phase);
   // Get or create the UART CONTROLLER config class
   if (cfg == null) //begin
-    if (!uvm_config_db#(uart_ctrl_config)::get(this, "", "cfg", cfg)) begin
-    `uvm_info("NOCONFIG", "No uart_ctrl_config creating...", UVM_LOW)
-    set_inst_override_by_type("cfg", uart_ctrl_config::get_type(),
-                                     default_uart_ctrl_config::get_type());
-    cfg = uart_ctrl_config::type_id::create("cfg");
-    //if (!cfg.randomize()) `uvm_error("RNDFAIL", "Config Randomization Failed")
-  end
+    if (!uvm_config_db #(uart_ctrl_config)::get(this, "", "cfg", cfg)) begin
+      `uvm_info("NOCONFIG", "No uart_ctrl_config creating...", UVM_LOW)
+      set_inst_override_by_type("cfg", uart_ctrl_config::get_type(),
+                                default_uart_ctrl_config::get_type());
+      cfg = uart_ctrl_config::type_id::create("cfg");
+      //if (!cfg.randomize()) `uvm_error("RNDFAIL", "Config Randomization Failed")
+    end
   if (apb_slave_cfg == null) //begin
-    if (!uvm_config_db#(apb_slave_config)::get(this, "", "apb_slave_cfg", apb_slave_cfg)) begin
-    `uvm_info("NOCONFIG", "No apb_slave_config ..", UVM_LOW)
-    apb_slave_cfg = cfg.apb_cfg.slave_configs[0];
-  end
-  //uvm_config_db#(uart_ctrl_config)::set(this, "monitor", "cfg", cfg);
+    if (!uvm_config_db #(apb_slave_config)::get(this, "", "apb_slave_cfg", apb_slave_cfg)) begin
+      `uvm_info("NOCONFIG", "No apb_slave_config ..", UVM_LOW)
+      apb_slave_cfg = cfg.apb_cfg.slave_configs[0];
+    end
+  //uvm_config_db #(uart_ctrl_config)::set(this, "monitor", "cfg", cfg);
   uvm_config_object::set(this, "monitor", "cfg", cfg);
   uart_cfg = cfg.uart_cfg;
 
@@ -80,12 +80,12 @@ function void uart_ctrl_env::build_phase(uvm_phase phase);
 
   // UVMREG: Get the register model, create the adapter and predictor
   if (reg_model == null)
-    if (!uvm_config_db#(uvm_reg_block)::get(this, "", "model", reg_model))
+    if (!uvm_config_db #(uvm_reg_block)::get(this, "", "model", reg_model))
       `uvm_error("NO_REG_CONFIG", "No register model found...")
   reg2apb = reg_to_apb_adapter::type_id::create("reg2apb");
-  apb_predictor = uvm_reg_predictor#(apb_transfer)::type_id::create("apb_predictor", this);
+  apb_predictor = uvm_reg_predictor #(apb_transfer)::type_id::create("apb_predictor", this);
 endfunction : build_phase
-  
+
 function void uart_ctrl_env::connect_phase(uvm_phase phase);
   super.connect_phase(phase);
   //UVMREG - Connect adapter to register sequencer and predictor
@@ -98,15 +98,15 @@ function void uart_ctrl_env::write(apb_transfer transfer);
   if (apb_slave_cfg.check_address_range(transfer.addr)) begin
     if (transfer.direction == APB_WRITE) begin
       `uvm_info(get_type_name(),
-          $sformatf("APB_WRITE: addr = 'h%0h, data = 'h%0h",
-          transfer.addr, transfer.data), UVM_MEDIUM)
+                $sformatf("APB_WRITE: addr = 'h%0h, data = 'h%0h",
+                          transfer.addr, transfer.data), UVM_MEDIUM)
       write_effects(transfer);
     end
     else if (transfer.direction == APB_READ) begin
       `uvm_info(get_type_name(),
-          $sformatf("APB_READ: addr = 'h%0h, data = 'h%0h",
-          transfer.addr, transfer.data), UVM_MEDIUM)
-        read_effects(transfer);
+                $sformatf("APB_READ: addr = 'h%0h, data = 'h%0h",
+                          transfer.addr, transfer.data), UVM_MEDIUM)
+      read_effects(transfer);
     end else
       `uvm_error("REGMEM", "Unsupported access!!!")
   end
@@ -116,27 +116,27 @@ endfunction : write
 function void uart_ctrl_env::write_effects(apb_transfer transfer);
   case (transfer.addr)
     apb_slave_cfg.start_address + `LINE_CTRL : begin
-                                            uart_cfg.char_length = transfer.data[1:0];
-                                            uart_cfg.parity_mode = transfer.data[5:4];
-                                            uart_cfg.parity_en   = transfer.data[3];
-                                            uart_cfg.nbstop      = transfer.data[2];
-                                            div_en = transfer.data[7];
-                                            uart_cfg.ConvToIntChrl();
-                                            uart_cfg.ConvToIntStpBt();
-                                            uart_cfg_out.write(uart_cfg);
-                                          end
+      uart_cfg.char_length = transfer.data[1:0];
+      uart_cfg.parity_mode = transfer.data[5:4];
+      uart_cfg.parity_en   = transfer.data[3];
+      uart_cfg.nbstop      = transfer.data[2];
+      div_en = transfer.data[7];
+      uart_cfg.ConvToIntChrl();
+      uart_cfg.ConvToIntStpBt();
+      uart_cfg_out.write(uart_cfg);
+    end
     apb_slave_cfg.start_address + `DIVD_LATCH1 : begin
-                                            if (div_en) begin
-                                            uart_cfg.baud_rate_gen = transfer.data[7:0];
-                                            uart_cfg_out.write(uart_cfg);
-                                            end
-                                          end
+      if (div_en) begin
+        uart_cfg.baud_rate_gen = transfer.data[7:0];
+        uart_cfg_out.write(uart_cfg);
+      end
+    end
     apb_slave_cfg.start_address + `DIVD_LATCH2 : begin
-                                            if (div_en) begin
-                                            uart_cfg.baud_rate_div = transfer.data[7:0];
-                                            uart_cfg_out.write(uart_cfg);
-                                            end
-                                          end
+      if (div_en) begin
+        uart_cfg.baud_rate_div = transfer.data[7:0];
+        uart_cfg_out.write(uart_cfg);
+      end
+    end
     default: `uvm_warning("REGMEM2", "Write access not to Control/Sataus Registers")
   endcase
   set_uart_config(uart_cfg);
