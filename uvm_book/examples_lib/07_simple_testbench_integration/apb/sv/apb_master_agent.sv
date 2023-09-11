@@ -1,5 +1,5 @@
 /******************************************************************************
-  FILE : apb_master_agent.sv
+ FILE : apb_master_agent.sv
  ******************************************************************************/
 //   Copyright 1999-2010 Cadence Design Systems, Inc.
 //   All Rights Reserved Worldwide
@@ -43,10 +43,10 @@ class apb_master_agent extends uvm_agent;
   `uvm_component_utils_end
 
   // new - constructor
-  function new (string name, uvm_component parent);
+  function new(string name, uvm_component parent);
     super.new(name, parent);
   endfunction : new
-  
+
   // Additional class methods
   extern virtual function void build_phase(uvm_phase phase);
   extern virtual function void connect_phase(uvm_phase phase);
@@ -59,16 +59,16 @@ function void apb_master_agent::build_phase(uvm_phase phase);
   uvm_object config_obj;
   super.build_phase(phase);
   if (cfg == null) begin
-    if (!uvm_config_db#(apb_config)::get(this, "", "cfg", cfg))
-     `uvm_warning("NOCONFIG", 
-          "Config not set for master agent, using default is_active field")
-    end
+    if (!uvm_config_db #(apb_config)::get(this, "", "cfg", cfg))
+      `uvm_warning("NOCONFIG",
+                   "Config not set for master agent, using default is_active field")
+  end
   else is_active = cfg.master_config.is_active;
-  
-   
+
+
   monitor = apb_monitor::type_id::create("monitor",this);
   collector = apb_collector::type_id::create("collector",this);
-  if(is_active == UVM_ACTIVE) begin
+  if (is_active == UVM_ACTIVE) begin
     sequencer = apb_master_sequencer::type_id::create("sequencer",this);
     driver = apb_master_driver::type_id::create("driver",this);
   end
@@ -86,7 +86,7 @@ function void apb_master_agent::connect_phase(uvm_phase phase);
 endfunction : connect_phase
 
 // ONLY USED IN THE APB_SUBSYSTEM VERIF ENV - REMOVE
-// update_config() 
+// update_config()
 function void apb_master_agent::update_config(input apb_config cfg);
   if (is_active == UVM_ACTIVE) begin
     sequencer.cfg = cfg;

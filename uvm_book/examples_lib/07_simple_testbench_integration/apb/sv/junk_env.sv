@@ -1,13 +1,13 @@
 interface apb_if (input pclock, input preset);
-  ... 
+  ...
   bit                has_checks = 1;
   bit                has_coverage = 1;
 
-// PADDR must not be X or Z when PSEL is asserted
-assertPAddrUnknown:assert property (
-                  disable iff(!has_checks) 
-                  (psel == 0 or !$isunknown(paddr)))
-                  else
+  // PADDR must not be X or Z when PSEL is asserted
+  assertPAddrUnknown:assert property (
+                                      disable iff(!has_checks)
+                                      (psel == 0 or !$isunknown(paddr)))
+    else
                     $error("ERR_APB001_PADDR_XZ\n PADDR went to X or Z \
                             when PSEL is asserted");
 endinterface : apb_if
@@ -18,7 +18,7 @@ class apb_env extends uvm_env;
 
   // The following two bits are used to control whether checks and coverage are
   // done both in the bus monitor class and the interface.
-  bit checks_enable = 1; 
+  bit checks_enable = 1;
   bit coverage_enable = 1;
 
   // Provide implementations of virtual methods such as get_type_name and create

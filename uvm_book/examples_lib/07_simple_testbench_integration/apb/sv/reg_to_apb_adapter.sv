@@ -1,13 +1,13 @@
 /*-------------------------------------------------------------------------
-File name   : reg_to_apb_adapter.sv
-Title       : Register Operations to APB Transactions Adapter Sequence
-Project     :
-Created     :
-Description : UVM_REG - Adapter Sequence converts UVM register operations
-            : to APB bus transactions
-Notes       : This example does not provide any random transfer delay
-            : for the transaction.  This could be added if desired. 
-------------------------------------------------------------------------*/
+ File name   : reg_to_apb_adapter.sv
+ Title       : Register Operations to APB Transactions Adapter Sequence
+ Project     :
+ Created     :
+ Description : UVM_REG - Adapter Sequence converts UVM register operations
+ : to APB bus transactions
+ Notes       : This example does not provide any random transfer delay
+ : for the transaction.  This could be added if desired.
+ ------------------------------------------------------------------------*/
 //   Copyright 1999-2011 Cadence Design Systems, Inc.
 //   All Rights Reserved Worldwide
 //
@@ -28,7 +28,7 @@ Notes       : This example does not provide any random transfer delay
 
 class reg_to_apb_adapter extends uvm_reg_adapter;
 
-`uvm_object_utils(reg_to_apb_adapter)
+  `uvm_object_utils(reg_to_apb_adapter)
 
   function new(string name="reg_to_apb_adapter");
     super.new(name);
@@ -53,14 +53,14 @@ class reg_to_apb_adapter extends uvm_reg_adapter;
     apb_transfer transfer;
     if (!$cast(transfer, bus_item)) begin
       `uvm_fatal("NOT_REG_TYPE",
-       "Provided bus_item is not of the correct type. Expecting apb_transfer")
-       return;
+                 "Provided bus_item is not of the correct type. Expecting apb_transfer")
+      return;
     end
     rw.kind =  (transfer.direction == APB_READ) ? UVM_READ : UVM_WRITE;
     rw.addr = transfer.addr;
     rw.data = transfer.data;
-    //rw.byte_en = 'h0;   // Set this to -1 or DO NOT SET IT AT ALL - 
+    //rw.byte_en = 'h0;   // Set this to -1 or DO NOT SET IT AT ALL -
     rw.status = UVM_IS_OK;
-  endfunction  : bus2reg
+  endfunction : bus2reg
 
 endclass : reg_to_apb_adapter

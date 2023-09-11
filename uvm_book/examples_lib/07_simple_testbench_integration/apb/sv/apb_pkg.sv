@@ -1,11 +1,11 @@
 /*-------------------------------------------------------------------------
-File name   : apb_pkg.sv
-Title       : Package for APB UVC
-Project     :
-Created     :
-Description : 
-Notes       :  
-----------------------------------------------------------------------*/
+ File name   : apb_pkg.sv
+ Title       : Package for APB UVC
+ Project     :
+ Created     :
+ Description :
+ Notes       :
+ ----------------------------------------------------------------------*/
 //   Copyright 1999-2010 Cadence Design Systems, Inc.
 //   All Rights Reserved Worldwide
 //
@@ -26,8 +26,8 @@ Notes       :
 
 package apb_pkg;
 
-// Import the UVM class library  and UVM automation macros
-import uvm_pkg::*;
+  // Import the UVM class library  and UVM automation macros
+  import uvm_pkg::*;
 `include "uvm_macros.svh"
 
 `include "sv/apb_config.sv"
