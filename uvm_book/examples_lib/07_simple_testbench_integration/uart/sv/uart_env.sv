@@ -70,7 +70,6 @@ endclass : uart_env
 
 //UVM build_phase
 function void uart_env::build_phase(uvm_phase phase);
-  super.build_phase(phase);
   // Configure
   if (cfg == null)
     if (!uvm_config_db #(uart_config)::get(this, "", "cfg", cfg)) begin
@@ -91,7 +90,6 @@ endfunction : build_phase
 
 //UVM connect_phase
 function void uart_env::connect_phase(uvm_phase phase);
-  super.connect_phase(phase);
   // Get the agent's virtual interface if set via config
   if (!uvm_config_db #(virtual uart_if)::get(this, "", "vif", vif))
     `uvm_error("NOVIF",{"virtual interface must be set for: ",get_full_name(),".vif"})

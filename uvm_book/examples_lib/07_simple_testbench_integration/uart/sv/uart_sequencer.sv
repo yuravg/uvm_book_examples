@@ -44,7 +44,6 @@ class uart_sequencer extends uvm_sequencer #(uart_frame);
 
   // UVM build_phase
   function void build_phase(uvm_phase phase);
-    super.build_phase(phase);
     if (cfg == null)
       if (!uvm_config_db #(uart_config)::get(this, "", "cfg", cfg))
         `uvm_warning("NOCONFIG", "uart_config not set for this component")

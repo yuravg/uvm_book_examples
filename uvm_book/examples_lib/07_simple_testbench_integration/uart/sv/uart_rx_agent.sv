@@ -60,7 +60,6 @@ endclass : uart_rx_agent
 
 // UVM build_phase
 function void uart_rx_agent::build_phase(uvm_phase phase);
-  super.build_phase(phase);
   // Configure
   if (cfg == null) begin
     if (!uvm_config_db #(uart_config)::get(this, "", "cfg", cfg))
@@ -78,7 +77,6 @@ endfunction : build_phase
 
 // UVM connect_phase
 function void uart_rx_agent::connect_phase(uvm_phase phase);
-  super.connect_phase(phase);
   if (is_active == UVM_ACTIVE) begin
     // Binds the driver to the sequencer using TLM port connections
     driver.seq_item_port.connect(sequencer.seq_item_export);
