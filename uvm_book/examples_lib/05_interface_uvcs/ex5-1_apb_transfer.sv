@@ -36,7 +36,7 @@ module test;
     `uvm_object_utils_end
 
     // Constructor - UVM sequence items require a string argument
-    function new (string name = "apb_transfer");
+    function new(string name = "apb_transfer");
       super.new(name);
     endfunction : new
   endclass : apb_transfer
@@ -92,6 +92,6 @@ endmodule : test
 // #   data: 'hc2e81fe
 // #   direction: APB_READ
 // #   transmit_delay: 'h44
-// # }
+// #}
 // # UVM DEFAULT LINE PRINTER FORMAT:
-// # apb_transfer: (apb_transfer@355) { addr: 'hd2a35224  data: 'hc2e81fe  direction: APB_READ  transmit_delay: 'h44  }
+// # apb_transfer: (apb_transfer@355) {addr: 'hd2a35224  data: 'hc2e81fe  direction: APB_READ  transmit_delay: 'h44}

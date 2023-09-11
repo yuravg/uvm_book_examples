@@ -1,13 +1,13 @@
 /**************************************************************************
-  Example: Simple Driver/Sequencer interaction
+ Example: Simple Driver/Sequencer interaction
 
-  To run:   %  irun -uvm ex5-8a_driver_sequencer.sv
+ To run:   %  irun -uvm ex5-8a_driver_sequencer.sv
 
-  OR:       %  irun -uvmhome $UVM_HOME ex5-8a_driver_sequencer.sv
-**************************************************************************/
+ OR:       %  irun -uvmhome $UVM_HOME ex5-8a_driver_sequencer.sv
+ **************************************************************************/
 module test;
-   import uvm_pkg::*;
-  `include "uvm_macros.svh"
+  import uvm_pkg::*;
+`include "uvm_macros.svh"
 
   // Simple request item that contains one field, question
   class simple_transfer extends uvm_sequence_item;
@@ -17,7 +17,7 @@ module test;
       `uvm_field_int(question, UVM_DEFAULT)
       `uvm_field_int(answer, UVM_DEFAULT)
     `uvm_object_utils_end
-    function new (string name="simple_transfer");
+    function new(string name="simple_transfer");
       super.new(name);
     endfunction : new
   endclass : simple_transfer
@@ -25,7 +25,7 @@ module test;
   class simple_seq  extends uvm_sequence #(simple_transfer);
     `uvm_object_utils(simple_seq)
 
-    function new (string name="simple_seq");
+    function new(string name="simple_seq");
       super.new(name);
     endfunction : new
 
@@ -39,13 +39,13 @@ module test;
 
   class simple_sequencer  extends uvm_sequencer #(simple_transfer);
     `uvm_component_utils(simple_sequencer)
-    function new (string name, uvm_component parent);
+    function new(string name, uvm_component parent);
       super.new(name, parent);
     endfunction : new
-  endclass
+  endclass : simple_sequencer
 
   class simple_driver extends uvm_driver #(simple_transfer);
-    function new (string name, uvm_component parent);
+    function new(string name, uvm_component parent);
       super.new(name, parent);
     endfunction : new
     `uvm_component_utils(simple_driver)
@@ -54,21 +54,21 @@ module test;
       get_and_drive();
     endtask : run_phase
 
-task get_and_drive();
-  while (1) begin
-    seq_item_port.get_next_item(req);
-    send_to_dut(req);
-    seq_item_port.item_done();
-  end
-endtask
+    task get_and_drive();
+      while (1) begin
+        seq_item_port.get_next_item(req);
+        send_to_dut(req);
+        seq_item_port.item_done();
+      end
+    endtask : get_and_drive
 
-task send_to_dut(simple_transfer trans);
-  // Logic to handle sending multiple data items in flight
-  trans.answer = trans.question + 1;
-  trans.print();
-endtask : send_to_dut
+    task send_to_dut(simple_transfer trans);
+      // Logic to handle sending multiple data items in flight
+      trans.answer = trans.question + 1;
+      trans.print();
+    endtask : send_to_dut
 
-endclass
+  endclass : simple_driver
 
   simple_sequencer  s_sequencer0;
   simple_driver s_driver0;
@@ -82,11 +82,11 @@ endclass
     s_driver0.rsp_port.connect(s_sequencer0.rsp_export);
     s_sequencer0.print(); s_driver0.print();
     run_test();
-  end 
+  end
 
   initial begin
     #10000;
     global_stop_request();
   end
 
-endmodule
+endmodule : test

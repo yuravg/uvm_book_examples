@@ -1,10 +1,10 @@
 /****************************************************************
-  Example 5-10: APB Collector
+ Example 5-10: APB Collector
 
-  To run:   %  irun -uvm ex5-10_apb_collector.sv
+ To run:   %  irun -uvm ex5-10_apb_collector.sv
 
-  OR:       %  irun -uvmhome $UVM_HOME ex5-10_apb_collector.sv
-****************************************************************/
+ OR:       %  irun -uvmhome $UVM_HOME ex5-10_apb_collector.sv
+ ****************************************************************/
 import uvm_pkg::*;
 `include "uvm_macros.svh"
 `include "sv/apb_if.sv"
@@ -20,7 +20,7 @@ class apb_collector extends uvm_component;
 
   // The following two bits are used to control whether checks and coverage are
   // done both in the collector class and the interface.
-  bit checks_enable = 1; 
+  bit checks_enable = 1;
   bit coverage_enable = 1;
 
   int num_transactions;
@@ -35,7 +35,7 @@ class apb_collector extends uvm_component;
   `uvm_component_utils_end
 
   // new - constructor
-  function new (string name, uvm_component parent);
+  function new(string name, uvm_component parent);
     super.new(name, parent);
     // TLM ports are created here
     item_collected_port = new("item_collected_port", this);
@@ -60,21 +60,21 @@ task apb_collector::run_phase(uvm_phase phase);
       1'b0 : trans_collected.direction = APB_READ;
       1'b1 : trans_collected.direction = APB_WRITE;
     endcase
-    if(trans_collected.direction == APB_READ)
+    if (trans_collected.direction == APB_READ)
       trans_collected.data = vif.prdata;
     if (trans_collected.direction == APB_WRITE)
       trans_collected.data = vif.pwdata;
     @(posedge vif.pclk);
-    if(trans_collected.direction == APB_READ)
+    if (trans_collected.direction == APB_READ)
       trans_collected.data = vif.prdata;
     this.end_tr(trans_collected);
     if (coverage_enable) perform_coverage();
     if (coverage_enable) perform_checks();
     item_collected_port.write(trans_collected);
     `uvm_info(get_type_name(), $sformatf("Transfer collected :\n%s",
-              trans_collected.sprint()), UVM_HIGH)
-     num_transactions++;
-    end
+                                         trans_collected.sprint()), UVM_HIGH)
+    num_transactions++;
+  end
 endtask : run_phase
 
 function void apb_collector::perform_coverage();

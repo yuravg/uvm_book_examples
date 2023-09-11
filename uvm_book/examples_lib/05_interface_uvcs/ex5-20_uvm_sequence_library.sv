@@ -1,6 +1,6 @@
 /*******************************************************************************
-  FILE : ex5-20_uvm_sequence_library.sv
-*******************************************************************************/
+ FILE : ex5-20_uvm_sequence_library.sv
+ *******************************************************************************/
 //------------------------------------------------------------------------------
 // SEQUENCE LIBRARY: mydut_seq_lib
 //------------------------------------------------------------------------------
@@ -20,6 +20,6 @@ class mydut_seq_lib extends uvm_sequence_library #(apb_transfer);
     add_typewide_sequence(apb_write_read_seq::get_type());
     add_typewide_sequence(apb_traffic_seq::get_type());
     init_sequence_library();
-  endfunction
- 
+  endfunction : new
+
 endclass : mydut_seq_lib

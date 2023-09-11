@@ -1,10 +1,10 @@
 /**************************************************************************
-  Example 5-12: APB Master Agent
+ Example 5-12: APB Master Agent
 
-  To run:   %  irun -uvm ex5-12_apb_master_agent.sv
+ To run:   %  irun -uvm ex5-12_apb_master_agent.sv
 
-  OR:       %  irun -uvmhome $UVM_HOME ex5-12_apb_master_agent.sv
-**************************************************************************/
+ OR:       %  irun -uvmhome $UVM_HOME ex5-12_apb_master_agent.sv
+ **************************************************************************/
 import uvm_pkg::*;
 `include "uvm_macros.svh"
 `include "sv/apb_if.sv"
@@ -31,18 +31,18 @@ class apb_master_agent extends uvm_agent;
 
   // Provide implementations of virtual methods such as get_type_name and create
   `uvm_component_utils_begin(apb_master_agent)
-     `uvm_field_enum(uvm_active_passive_enum, is_active, UVM_DEFAULT)
+    `uvm_field_enum(uvm_active_passive_enum, is_active, UVM_DEFAULT)
   `uvm_component_utils_end
 
   // new - constructor
-  function new (string name, uvm_component parent);
+  function new(string name, uvm_component parent);
     super.new(name, parent);
   endfunction : new
-  
+
   // Additional class methods
   extern virtual function void build_phase(uvm_phase phase);
   extern virtual function void connect_phase(uvm_phase phase);
-  
+
 endclass : apb_master_agent
 
 // UVM build_phase()
@@ -51,7 +51,7 @@ function void apb_master_agent::build_phase(uvm_phase phase);
   // Always create the collector and monitor
   monitor = apb_monitor::type_id::create("monitor", this);
   collector = apb_collector::type_id::create("collector", this);
-  if(is_active == UVM_ACTIVE) begin
+  if (is_active == UVM_ACTIVE) begin
     sequencer = apb_master_sequencer::type_id::create("sequencer",this);
     driver = apb_master_driver::type_id::create("driver",this);
   end

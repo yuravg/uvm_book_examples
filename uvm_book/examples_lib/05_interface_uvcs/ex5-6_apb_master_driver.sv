@@ -1,10 +1,10 @@
 /**************************************************************************
-  Example 5-6: Virtual Interface Usage in APB Master Driver 
+ Example 5-6: Virtual Interface Usage in APB Master Driver
 
-  To run:   %  irun -uvm ex5-6_apb_master_driver.sv
+ To run:   %  irun -uvm ex5-6_apb_master_driver.sv
 
-  OR:       %  irun -uvmhome $UVM_HOME ex5-6_apb_master_driver.sv
-**************************************************************************/
+ OR:       %  irun -uvmhome $UVM_HOME ex5-6_apb_master_driver.sv
+ **************************************************************************/
 import uvm_pkg::*;
 `include "uvm_macros.svh"
 `include "sv/apb_if.sv"
@@ -17,17 +17,17 @@ class apb_master_driver extends uvm_driver #(apb_transfer);
 
   // The virtual interface used to drive and view HDL signals.
   virtual apb_if vif;
-  
+
   // Provide implementations of virtual methods such as get_type_name and create
   `uvm_component_utils(apb_master_driver)
 
   // Constructor which calls super.new() with appropriate parameters.
-  function new (string name, uvm_component parent);
+  function new(string name, uvm_component parent);
     super.new(name, parent);
   endfunction : new
 
   extern virtual function void connect_phase (uvm_phase phase);
-  extern virtual task run_phase (uvm_phase phase);
+  extern virtual task run_phase(uvm_phase phase);
   extern virtual protected task get_and_drive();
   extern virtual protected task reset_signals();
   extern virtual protected task drive_transfer(apb_transfer trans);
@@ -36,7 +36,7 @@ endclass : apb_master_driver
 
 function void apb_master_driver::connect_phase(uvm_phase phase);
   super.connect_phase(phase);
-  if (!uvm_config_db#(virtual apb_if)::get(this, get_full_name(), "vif", vif))
+  if (!uvm_config_db #(virtual apb_if)::get(this, get_full_name(), "vif", vif))
     `uvm_error("NOVIF",{"virtual interface must be set for: ",get_full_name(), ".vif"})
 endfunction : connect_phase
 
@@ -60,7 +60,7 @@ task apb_master_driver::get_and_drive();
   end
 endtask : get_and_drive
 
-// Task that is fork/join_none'ed in the run phase in order to drive all 
+// Task that is fork/join_none'ed in the run phase in order to drive all
 // signals to reset state at the appropriate time.
 task apb_master_driver::reset_signals();
   forever begin
@@ -74,13 +74,13 @@ task apb_master_driver::reset_signals();
   end
 endtask : reset_signals
 
-// Task that is called by another component (typically the driver component) 
-// when an item is ready to be sent.  This task drives all phases of 
+// Task that is called by another component (typically the driver component)
+// when an item is ready to be sent.  This task drives all phases of
 // transfer.
 task apb_master_driver::drive_transfer (apb_transfer trans);
   int slave_indx;
   if (trans.transmit_delay > 0)
-     repeat (trans.transmit_delay) @(posedge vif.pclk);
+    repeat (trans.transmit_delay) @(posedge vif.pclk);
 
   // Drive the address plase of the transfer
   //slave_indx = cfg.get_slave_psel_by_addr(trans.addr);
@@ -99,8 +99,8 @@ task apb_master_driver::drive_transfer (apb_transfer trans);
   @(posedge vif.pclk)
     vif.penable <= 1;
   @(posedge vif.pclk)
-  if (trans.direction == APB_READ)
-    trans.data = vif.prdata;
+    if (trans.direction == APB_READ)
+      trans.data = vif.prdata;
   vif.penable <= 0;
   vif.psel <= 0;
 endtask : drive_transfer

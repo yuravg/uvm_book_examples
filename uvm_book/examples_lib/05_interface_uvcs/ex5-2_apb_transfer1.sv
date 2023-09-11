@@ -47,7 +47,7 @@ module test();
     `uvm_object_utils_end
 
     // Constructor - required UVM syntax
-    function new (string name = "apb_transfer");
+    function new(string name = "apb_transfer");
       super.new(name);
     endfunction : new
 

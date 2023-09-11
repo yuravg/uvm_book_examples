@@ -1,10 +1,10 @@
 /*******************************************************************************
-  Example 5-25: APB Sequence Incorporating End of Test
+ Example 5-25: APB Sequence Incorporating End of Test
 
-  To run:  %  irun -uvm ex5-25_apb_read_byte_seq.sv
+ To run:  %  irun -uvm ex5-25_apb_read_byte_seq.sv
 
-  OR:      %  irun -uvmhome $UVM_HOME ex5-25_apb_read_byte_seq.sv
-*******************************************************************************/
+ OR:      %  irun -uvmhome $UVM_HOME ex5-25_apb_read_byte_seq.sv
+ *******************************************************************************/
 import uvm_pkg::*;
 `include "uvm_macros.svh"
 `include "sv/apb_transfer.sv"
@@ -20,14 +20,14 @@ class apb_read_byte_seq extends apb_master_base_seq;
 
   function new(string name="apb_read_byte_seq");
     super.new(name);
-  endfunction
+  endfunction : new
 
   // Constructor and UVM automation macros
   `uvm_object_utils(apb_read_byte_seq)
 
   virtual task body();
     `uvm_info(get_type_name(), "Starting ...", UVM_HIGH)
-    `uvm_do_with(req, {req.addr == start_addr; req.direction == APB_READ; })
-  endtask
+    `uvm_do_with(req, {req.addr == start_addr; req.direction == APB_READ;})
+  endtask : body
 
 endclass : apb_read_byte_seq

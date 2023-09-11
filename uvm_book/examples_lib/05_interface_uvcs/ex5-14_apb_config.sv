@@ -1,16 +1,16 @@
 /*************************************************************************
-  Example 5-14: APB Configuration Classes (slave, master and env config)
+ Example 5-14: APB Configuration Classes (slave, master and env config)
 
-  To run:   %  irun -uvm ex5-14_apb_config.sv
+ To run:   %  irun -uvm ex5-14_apb_config.sv
 
-  OR:       %  irun -uvmhome $UVM_HOME ex5-14_apb_config.sv
-  
-  This file contains multiple configuration classes:
-    apb_slave_config - for configuring an APB slave device
-    apb_master_config - for configuring an APB master device
-    apb_config - has 1 master config and N slave config's
-    default_apb_config - configures for 1 master and 2 slaves
-*******************************************************************************/
+ OR:       %  irun -uvmhome $UVM_HOME ex5-14_apb_config.sv
+
+ This file contains multiple configuration classes:
+ apb_slave_config - for configuring an APB slave device
+ apb_master_config - for configuring an APB master device
+ apb_config - has 1 master config and N slave config's
+ default_apb_config - configures for 1 master and 2 slaves
+ *******************************************************************************/
 `include "uvm_macros.svh"
 import uvm_pkg::*;
 
@@ -22,8 +22,8 @@ class apb_slave_config extends uvm_object;
   rand int end_address;
   rand int psel_index;
 
-  constraint addr_cst { start_address <= end_address; }
-  constraint psel_cst { psel_index inside {[0:15]}; }
+  constraint addr_cst {start_address <= end_address;}
+  constraint psel_cst {psel_index inside {[0:15]};}
 
   `uvm_object_utils_begin(apb_slave_config)
     //`uvm_field_string(name, UVM_DEFAULT | UVM_NOPRINT)
@@ -35,14 +35,14 @@ class apb_slave_config extends uvm_object;
   `uvm_object_utils_end
 
   // Constructor - UVM required syntax
-  function new (string name = "apb_slave_config");
+  function new(string name = "apb_slave_config");
     super.new(name);
-  endfunction
+  endfunction : new
 
   // Checks to see if an address is in the configured range
   function bit check_address_range(int unsigned addr);
     return (!((start_address > addr) || (end_address < addr)));
-  endfunction
+  endfunction : check_address_range
 
 endclass : apb_slave_config
 
@@ -52,9 +52,9 @@ class apb_master_config extends uvm_object;
   string name;
   uvm_active_passive_enum is_active = UVM_ACTIVE;
 
-  function new (string name = "unnamed-apb_master_config");
+  function new(string name = "unnamed-apb_master_config");
     super.new(name);
-  endfunction
+  endfunction : new
 
   `uvm_object_utils_begin(apb_master_config)
     //`uvm_field_string(name, UVM_DEFAULT|UVM_NOPRINT)
@@ -64,7 +64,7 @@ class apb_master_config extends uvm_object;
 
 endclass : apb_master_config
 
-// APB Configuration Information 
+// APB Configuration Information
 class apb_config extends uvm_object;
 
   // APB has one master and N slaves
@@ -80,22 +80,22 @@ class apb_config extends uvm_object;
     `uvm_field_int(has_bus_monitor, UVM_DEFAULT)
   `uvm_object_utils_end
 
-  function new (string name = "unnamed-apb_config");
+  function new(string name = "unnamed-apb_config");
     super.new(name);
-  endfunction
+  endfunction : new
 
   // Additional class methods
   extern function void add_slave(string name, int start_addr, int end_addr,
-            int psel_indx, uvm_active_passive_enum is_active = UVM_ACTIVE);
+                                 int psel_indx, uvm_active_passive_enum is_active = UVM_ACTIVE);
   extern function void add_master(string name,
-            uvm_active_passive_enum is_active = UVM_ACTIVE);
+                                  uvm_active_passive_enum is_active = UVM_ACTIVE);
   extern function int get_slave_psel_by_addr(int addr);
   extern function string get_slave_name_by_addr(int addr);
-endclass  : apb_config
+endclass : apb_config
 
 // apb_config - Creates and configures a slave agent config and adds to a queue
 function void apb_config::add_slave(string name, int start_addr, int end_addr,
-            int psel_indx, uvm_active_passive_enum is_active = UVM_ACTIVE);
+                                    int psel_indx, uvm_active_passive_enum is_active = UVM_ACTIVE);
   apb_slave_config tmp_slave_cfg;
   num_slaves++;
   tmp_slave_cfg = apb_slave_config::type_id::create("slave_config");
@@ -104,7 +104,7 @@ function void apb_config::add_slave(string name, int start_addr, int end_addr,
   tmp_slave_cfg.end_address = end_addr;
   tmp_slave_cfg.psel_index = psel_indx;
   tmp_slave_cfg.is_active = is_active;
-  
+
   slave_configs.push_back(tmp_slave_cfg);
 endfunction : add_slave
 
@@ -118,7 +118,7 @@ endfunction : add_master
 // apb_config - Returns the slave psel index
 function int apb_config::get_slave_psel_by_addr(int addr);
   for (int i = 0; i < slave_configs.size(); i++)
-    if(slave_configs[i].check_address_range(addr)) begin
+    if (slave_configs[i].check_address_range(addr)) begin
       return slave_configs[i].psel_index;
     end
 endfunction : get_slave_psel_by_addr
@@ -126,7 +126,7 @@ endfunction : get_slave_psel_by_addr
 // apb_config - Return the name of the slave
 function string apb_config::get_slave_name_by_addr(int addr);
   for (int i = 0; i < slave_configs.size(); i++)
-    if(slave_configs[i].check_address_range(addr)) begin
+    if (slave_configs[i].check_address_range(addr)) begin
       return slave_configs[i].name;
     end
 endfunction : get_slave_name_by_addr
@@ -143,6 +143,6 @@ class default_apb_config extends apb_config;
     add_slave("slave0", 32'h0000_0000, 32'h7FFF_FFFF, 0, UVM_ACTIVE);
     add_slave("slave1", 32'h8000_0000, 32'hFFFF_FFFF, 1, UVM_ACTIVE);
     add_master("master", UVM_ACTIVE);
-  endfunction
+  endfunction : new
 
 endclass : default_apb_config

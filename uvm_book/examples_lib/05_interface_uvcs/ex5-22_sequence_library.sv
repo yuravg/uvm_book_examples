@@ -1,10 +1,10 @@
 /*******************************************************************************
  Example 5-22: UVM Sequence Library Usage
 
-  To run:  %  irun -uvm ex5-22_sequence_library.sv
+ To run:  %  irun -uvm ex5-22_sequence_library.sv
 
-  OR:      %  irun -uvmhome $UVM_HOME ex5-22_sequence_library.sv
-*******************************************************************************/
+ OR:      %  irun -uvmhome $UVM_HOME ex5-22_sequence_library.sv
+ *******************************************************************************/
 import uvm_pkg::*;
 `include "uvm_macros.svh"
 `include "sv/apb_transfer.sv"
@@ -32,6 +32,6 @@ class mydut_seq_lib extends uvm_sequence_library #(apb_transfer);
     add_sequence(apb_write_read_word_seq::get_type());
     add_sequence(apb_traffic_seq::get_type());
     init_sequence_library();
-  endfunction
+  endfunction : new
 
 endclass : mydut_seq_lib

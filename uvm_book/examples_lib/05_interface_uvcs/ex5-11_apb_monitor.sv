@@ -1,10 +1,10 @@
 /****************************************************************
-  Example 5-11: APB Monitor
+ Example 5-11: APB Monitor
 
-  To run:   %  irun -uvm ex5-11_apb_monitor.sv
+ To run:   %  irun -uvm ex5-11_apb_monitor.sv
 
-  OR:       %  irun -uvmhome $UVM_HOME ex5-11_apb_monitor.sv
-****************************************************************/
+ OR:       %  irun -uvmhome $UVM_HOME ex5-11_apb_monitor.sv
+ ****************************************************************/
 import uvm_pkg::*;
 `include "uvm_macros.svh"
 `include "sv/apb_transfer.sv"
@@ -17,14 +17,14 @@ class apb_monitor extends uvm_monitor;
 
   // The following two bits are used to control whether checks and coverage are
   // done both in the monitor class and the interface.
-  bit checks_enable = 1; 
+  bit checks_enable = 1;
   bit coverage_enable = 1;
 
   // TLM PORT for sending transaction OUT to scoreboard, register database, etc
   uvm_analysis_port #(apb_transfer) item_collected_port;
 
   // TLM Connection to the Collector - look for a write() task implementation
-  uvm_analysis_imp  #(apb_transfer, apb_monitor) coll_mon_port;
+  uvm_analysis_imp #(apb_transfer, apb_monitor) coll_mon_port;
 
   // The current apb_transfer
   protected apb_transfer trans_collected;
@@ -50,10 +50,10 @@ class apb_monitor extends uvm_monitor;
       bins ALL_ONES = {8'hff};
     }
     TRANS_ADDR_X_TRANS_DIRECTION: cross TRANS_ADDR, TRANS_DIRECTION;
-  endgroup
+  endgroup : apb_transfer_cg
 
   // Constructor - required syntax for UVM automation and utilities
-  function new (string name, uvm_component parent);
+  function new(string name, uvm_component parent);
     super.new(name, parent);
     trans_collected = new();
     apb_transfer_cg = new();
@@ -74,7 +74,7 @@ endclass : apb_monitor
 function void apb_monitor::write(apb_transfer trans);
   // Make a copy of the transaction (may not be necessary!)
   $cast(trans_collected, trans.clone());
-  num_transactions++;  
+  num_transactions++;
   `uvm_info(get_type_name(), {"Transaction Collected:\n", trans_collected.sprint()}, UVM_HIGH)
   if (checks_enable) perform_checks();
   if (coverage_enable) perform_coverage();

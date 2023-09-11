@@ -35,7 +35,7 @@ module test;
     end
     // Now randomize with additional inline constraints
     if (!my_xfer.randomize() with {addr inside {['h0000:'hFFFF]};
-      direction == APB_WRITE; })
+      direction == APB_WRITE;})
       `uvm_fatal("RANDFAIL", "Can not randomize my_xfer")
     my_xfer.print();
   end
