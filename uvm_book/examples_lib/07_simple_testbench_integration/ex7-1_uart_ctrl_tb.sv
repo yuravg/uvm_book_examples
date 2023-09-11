@@ -50,7 +50,6 @@ module test;
   endclass : uart_ctrl_tb
 
   function void uart_ctrl_tb::build_phase(uvm_phase phase);
-    super.build_phase(phase);
     // Create UVC configuration if it has not already been set
     if (apb_cfg == null) begin
       apb_cfg = apb_config::type_id::create("apb_cfg", this);
@@ -74,7 +73,6 @@ module test;
   endfunction : build_phase
 
   function void uart_ctrl_tb::connect_phase(uvm_phase phase);
-    super.connect_phase(phase);
     // Connect TLM ports from monitors to scoreboards
     uart0.Rx.monitor.frame_collected_port.connect(rx_scbd.uart_match);
     apb0.bus_monitor.item_collected_port.connect(rx_scbd.apb_add);
