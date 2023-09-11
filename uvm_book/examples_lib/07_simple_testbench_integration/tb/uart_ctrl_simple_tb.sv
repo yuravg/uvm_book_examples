@@ -1,9 +1,9 @@
 /****************************************************************
-  File: uart_ctrl_simple_tb.sv
- 
-  This is a simple testbench for the UART Controller design.
-  
-****************************************************************/
+ File: uart_ctrl_simple_tb.sv
+
+ This is a simple testbench for the UART Controller design.
+
+ ****************************************************************/
 
 class uart_ctrl_tb extends uvm_env;
 
@@ -40,14 +40,14 @@ function void uart_ctrl_tb::build_phase(uvm_phase phase);
   // Configure the APB UVC:  apb_cfg is automated so it is set with
   // apply_config_settings so no need to "get()" can check though
   if (apb_cfg == null)
-    if (!uvm_config_db#(apb_config)::get(this, "", "apb_cfg", apb_cfg)) begin
-       `uvm_info("NOCONFIG", "No APB config. creating...", UVM_LOW)
-       apb_cfg = apb_config::type_id::create("apb_cfg", this);
-       apb_cfg.add_master("master", UVM_ACTIVE);
-       apb_cfg.add_slave("slave0", 32'h00000000, 32'h81FFFFFF, 0, UVM_PASSIVE);
-  end
+    if (!uvm_config_db #(apb_config)::get(this, "", "apb_cfg", apb_cfg)) begin
+      `uvm_info("NOCONFIG", "No APB config. creating...", UVM_LOW)
+      apb_cfg = apb_config::type_id::create("apb_cfg", this);
+      apb_cfg.add_master("master", UVM_ACTIVE);
+      apb_cfg.add_slave("slave0", 32'h00000000, 32'h81FFFFFF, 0, UVM_PASSIVE);
+    end
   if (uart_cfg == null)
-    if (!uvm_config_db#(uart_config)::get(this, "", "uart_cfg", uart_cfg))
+    if (!uvm_config_db #(uart_config)::get(this, "", "uart_cfg", uart_cfg))
       uart_cfg = uart_config::type_id::create("uart_cfg", this);
 
   // Set the configuration for all sub-components
@@ -74,6 +74,6 @@ function void uart_ctrl_tb::connect_phase(uvm_phase phase);
   // Hook up virtual sequencer to interface sequencers
   virtual_sequencer.apb_seqr =  apb0.master.sequencer;
   if (uart0.Tx.is_active == UVM_ACTIVE)
-     virtual_sequencer.uart_seqr =  uart0.Tx.sequencer;
+    virtual_sequencer.uart_seqr =  uart0.Tx.sequencer;
 
 endfunction : connect_phase
