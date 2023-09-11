@@ -1,6 +1,6 @@
 /*******************************************************************************
-  FILE : demo_seq_lib.sv
-*******************************************************************************/
+ FILE : demo_seq_lib.sv
+ *******************************************************************************/
 //   Copyright 1999-2010 Cadence Design Systems, Inc.
 //   All Rights Reserved Worldwide
 //
@@ -21,7 +21,7 @@
 
 
 `ifndef DEMO_SEQ_LIB_SV
-`define DEMO_SEQ_LIB_SV
+  `define DEMO_SEQ_LIB_SV
 
 //------------------------------------------------------------------------------
 // SEQUENCE LIBRARY: demo_seq_lib
@@ -53,14 +53,14 @@ class demo_seq_lib extends uvm_sequence_library #(apb_transfer);
     //add_typewide_sequence(read_after_write_seq::get_type());
     //add_typewide_sequence(multiple_read_after_write_seq::get_type());
     init_sequence_library();
-  endfunction
+  endfunction : new
 
   task body();
     this.print();
     super.body();
     this.print();
   endtask : body
- 
+
 endclass : demo_seq_lib
 
 class demo_seq_lib2 extends demo_seq_lib;
@@ -76,14 +76,14 @@ class demo_seq_lib2 extends demo_seq_lib;
     // remove sequence for this library extension
     remove_sequence(multiple_read_after_write_seq::get_type());
     //init_sequence_library();
-  endfunction
+  endfunction : new
 
   task body();
-   fork
-    super.body();
-    #800 remove_sequence(read_after_write_seq::get_type());
-    #1000 add_sequence(multiple_read_after_write_seq::get_type());
-   join
+    fork
+      super.body();
+      #800 remove_sequence(read_after_write_seq::get_type());
+      #1000 add_sequence(multiple_read_after_write_seq::get_type());
+    join
   endtask : body
 
 endclass : demo_seq_lib2
