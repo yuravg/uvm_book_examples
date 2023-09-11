@@ -14,7 +14,6 @@ class simple_test extends uvm_test;
   endfunction : new
 
   virtual function void build_phase(uvm_phase phase);
-    super.build_phase(phase);
     my_tb = uart_ctrl_tb::type_id::create("my_tb", this);
   endfunction : build_phase
 

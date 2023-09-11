@@ -16,12 +16,10 @@ class uart_ctrl_base_test extends uvm_test;
   `uvm_component_utils(uart_ctrl_base_test)
 
   virtual function void build_phase(uvm_phase phase);
-    super.build_phase(phase);
     uart_ctrl_tb0 = uart_ctrl_tb::type_id::create("uart_ctrl_tb0", this);
   endfunction : build_phase
 
   task run_phase(uvm_phase phase);
-    super.run_phase(phase);
     this.print();
   endtask : run_phase
 
