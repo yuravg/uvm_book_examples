@@ -48,7 +48,6 @@ endclass : demo_tb
 
 // UVM build_phase
 function void demo_tb::build_phase(uvm_phase phase);
-  super.build_phase(phase);
   demo_cfg = demo_config::type_id::create("demo_cfg");
   uvm_config_object::set(this, "apb0*", "cfg", demo_cfg);
   uvm_config_object::set(this, "apb0.slave[0]*", "cfg", demo_cfg.slave_configs[0]);

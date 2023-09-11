@@ -29,7 +29,6 @@ class demo_base_test extends uvm_test;
   endfunction : new
 
   virtual function void build_phase(uvm_phase phase);
-    super.build_phase(phase);
     // Enable transaction recording for everything
     set_config_int("*", "recording_detail", UVM_FULL);
     // EXAMPLE: disable coverage for the bus_monitor
@@ -46,7 +45,6 @@ class demo_base_test extends uvm_test;
   endfunction : connect_phase
 
   //function void end_of_elaboration_phase(uvm_phase phase);
-  //  super.end_of_elaboration_phase(phase);
   //  this.print();   // prints the test hierarchy
   //endfunction : end_of_elaboration_phase
 
@@ -190,7 +188,6 @@ class config_uart_ctrl_test extends uvm_test;
   endfunction : new
 
   virtual function void build_phase(uvm_phase phase);
-    super.build_phase(phase);
     // Enable transaction recording for everything
     set_config_int("*", "recording_detail", UVM_FULL);
     demo_tb0 = demo_tb::type_id::create("demo_tb0", this);

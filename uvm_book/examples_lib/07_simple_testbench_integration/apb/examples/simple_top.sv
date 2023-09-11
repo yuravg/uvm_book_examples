@@ -40,7 +40,6 @@ module simple_top;
     endfunction : new
 
     virtual function void build_phase(uvm_phase phase);
-      super.build_phase(phase);
 
       // Create the configuration object
       cfg = apb_config::type_id::create("cfg");

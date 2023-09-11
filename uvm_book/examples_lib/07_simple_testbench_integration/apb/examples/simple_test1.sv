@@ -29,7 +29,6 @@ class simple_tb extends uvm_env;
 
   // UVM build_phase
   function void build_phase(uvm_phase phase);
-    super.build_phase(phase);
     cfg = apb_config::type_id::create("cfg");
     // configure APB with an ACTIVE master and one ACTIVE slave
     cfg.add_slave("slave[0]", 32'h0000_0000, 32'hFFFF_FFFF, 0, UVM_ACTIVE);
@@ -58,7 +57,6 @@ class simple_test extends uvm_test;
   endfunction : new
 
   virtual function void build_phase(uvm_phase phase);
-    super.build_phase(phase);
     // Disable coverage
     uvm_config_int::set(this, "*", "coverage_enable", 0);
     // Set the default sequence for the master and slave
