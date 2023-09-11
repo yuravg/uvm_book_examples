@@ -1,11 +1,11 @@
 /*-------------------------------------------------------------------------
-File name   : uart_tx_agent.sv
-Title       : Tx Agent file
-Project     :
-Created     :
-Description : build Monitor, Sequencer,Driver and connect Sequencer and driver
-Notes       :  
-----------------------------------------------------------------------*/
+ File name   : uart_tx_agent.sv
+ Title       : Tx Agent file
+ Project     :
+ Created     :
+ Description : build Monitor, Sequencer,Driver and connect Sequencer and driver
+ Notes       :
+ ----------------------------------------------------------------------*/
 //   Copyright 1999-2010 Cadence Design Systems, Inc.
 //   All Rights Reserved Worldwide
 //
@@ -24,9 +24,9 @@ Notes       :
 //   permissions and limitations under the License.
 //----------------------------------------------------------------------
 
-  
+
 `ifndef UART_TX_AGENT_SVH
-`define UART_TX_AGENT_SVH
+  `define UART_TX_AGENT_SVH
 
 class uart_tx_agent extends uvm_agent;
 
@@ -35,7 +35,7 @@ class uart_tx_agent extends uvm_agent;
 
   // Configuration
   uart_config cfg;
-  
+
   uart_tx_monitor monitor;
   uart_tx_driver driver;
   uart_sequencer sequencer;
@@ -44,18 +44,18 @@ class uart_tx_agent extends uvm_agent;
   `uvm_component_utils_begin(uart_tx_agent)
     `uvm_field_enum(uvm_active_passive_enum, is_active, UVM_DEFAULT)
     `uvm_field_object(cfg, UVM_DEFAULT | UVM_REFERENCE)
-  `uvm_component_utils_end 
+  `uvm_component_utils_end
 
   // Constructor - UVM required syntax
-  function new(string name = "", uvm_component parent); 
+  function new(string name = "", uvm_component parent);
     super.new(name, parent);
-  endfunction
+  endfunction : new
 
   // Additional class methods
   extern virtual function void build_phase(uvm_phase phase);
   extern virtual function void connect_phase(uvm_phase phase);
   extern virtual function void update_config(uart_config cfg);
-  
+
 endclass : uart_tx_agent
 
 // UVM build_phase
@@ -63,8 +63,8 @@ function void uart_tx_agent::build_phase(uvm_phase phase);
   super.build_phase(phase);
   // Configure
   if (cfg == null) begin
-    if (!uvm_config_db#(uart_config)::get(this, "", "cfg", cfg))
-    `uvm_warning("NOCONFIG", "Config not set for Tx agent, using default is_active field")
+    if (!uvm_config_db #(uart_config)::get(this, "", "cfg", cfg))
+      `uvm_warning("NOCONFIG", "Config not set for Tx agent, using default is_active field")
   end
   else is_active = cfg.is_tx_active;
   monitor = uart_tx_monitor::type_id::create("monitor",this);   //lab3_note1
@@ -85,7 +85,7 @@ function void uart_tx_agent::connect_phase(uvm_phase phase);
 endfunction : connect_phase
 
 // Assign the config to the agent's children
-function void uart_tx_agent::update_config( uart_config cfg);
+function void uart_tx_agent::update_config(uart_config cfg);
   monitor.cfg = cfg;
   if (is_active == UVM_ACTIVE) begin
     driver.cfg = cfg;

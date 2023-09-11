@@ -1,12 +1,12 @@
 /*-------------------------------------------------------------------------
-File name   : uart_sequencer.sv
-Title       : Sequencer file for the UART UVC
-Project     :
-Created     :
-Description : The sequencer generates stream in transaction in term of items 
-              and sequences of item
-Notes       :  
-----------------------------------------------------------------------*/
+ File name   : uart_sequencer.sv
+ Title       : Sequencer file for the UART UVC
+ Project     :
+ Created     :
+ Description : The sequencer generates stream in transaction in term of items
+ and sequences of item
+ Notes       :
+ ----------------------------------------------------------------------*/
 //   Copyright 1999-2010 Cadence Design Systems, Inc.
 //   All Rights Reserved Worldwide
 //
@@ -26,7 +26,7 @@ Notes       :
 //----------------------------------------------------------------------
 
 `ifndef UART_SEQUENCER_SVH
-`define UART_SEQUENCER_SVH
+  `define UART_SEQUENCER_SVH
 
 class uart_sequencer extends uvm_sequencer #(uart_frame);
 
@@ -38,16 +38,16 @@ class uart_sequencer extends uvm_sequencer #(uart_frame);
     `uvm_field_object(cfg, UVM_DEFAULT | UVM_REFERENCE)
   `uvm_component_utils_end
 
-   function new(string name, uvm_component parent);
-      super.new(name, parent);
-   endfunction 
+  function new(string name, uvm_component parent);
+    super.new(name, parent);
+  endfunction : new
 
   // UVM build_phase
   function void build_phase(uvm_phase phase);
-      super.build_phase(phase);
-      if(cfg == null)
-        if (!uvm_config_db#(uart_config)::get(this, "", "cfg", cfg))
-          `uvm_warning("NOCONFIG", "uart_config not set for this component")
+    super.build_phase(phase);
+    if (cfg == null)
+      if (!uvm_config_db #(uart_config)::get(this, "", "cfg", cfg))
+        `uvm_warning("NOCONFIG", "uart_config not set for this component")
   endfunction : build_phase
 
 endclass : uart_sequencer

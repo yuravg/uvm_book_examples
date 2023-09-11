@@ -1,11 +1,11 @@
 /*-------------------------------------------------------------------------
-File name   : uart_rx_monitor.sv
-Title       : monitor file for uart uvc
-Project     :
-Created     :
-Description : descirbes UART Monitor
-Notes       :  
-----------------------------------------------------------------------*/
+ File name   : uart_rx_monitor.sv
+ Title       : monitor file for uart uvc
+ Project     :
+ Created     :
+ Description : descirbes UART Monitor
+ Notes       :
+ ----------------------------------------------------------------------*/
 //   Copyright 1999-2010 Cadence Design Systems, Inc.
 //   All Rights Reserved Worldwide
 //
@@ -26,7 +26,7 @@ Notes       :
 
 
 `ifndef UART_RX_MONITOR_SV
-`define UART_RX_MONITOR_SV
+  `define UART_RX_MONITOR_SV
 
 class uart_rx_monitor extends uart_monitor;
 
@@ -35,45 +35,45 @@ class uart_rx_monitor extends uart_monitor;
   `uvm_component_utils_end
 
   covergroup rx_traffic_cg;
-    FRAME_DATA: coverpoint cur_frame.payload { 
-        bins zero = {0};
-        bins smaller = {[1:127]};
-        bins larger = {[128:254]};
-        bins max = {255};
-      }
-    FRAME_MSB_LSB: coverpoint msb_lsb_data { 
-        bins zero = {0};
-        bins one = {1};
-        bins two = {2};
-        bins three = {3};
-      }
-  endgroup
+    FRAME_DATA: coverpoint cur_frame.payload {
+      bins zero = {0};
+      bins smaller = {[1:127]};
+      bins larger = {[128:254]};
+      bins max = {255};
+    }
+    FRAME_MSB_LSB: coverpoint msb_lsb_data {
+      bins zero = {0};
+      bins one = {1};
+      bins two = {2};
+      bins three = {3};
+    }
+  endgroup : rx_traffic_cg
 
   covergroup rx_protocol_cg;
     PARITY_ERROR_GEN: coverpoint cur_frame.error_bits[1] {
-        bins normal = { 0 };
-        bins parity_error = { 1 };
-      }
+      bins normal = {0};
+      bins parity_error = {1};
+    }
     FRAME_BREAK: coverpoint cur_frame.error_bits[2] {
-        bins normal = { 0 };
-        bins frame_break = { 1 };
-      }
-  endgroup
+      bins normal = {0};
+      bins frame_break = {1};
+    }
+  endgroup : rx_protocol_cg
 
-  function new (string name, uvm_component parent);
+  function new(string name, uvm_component parent);
     super.new(name, parent);
     rx_traffic_cg = new();
     rx_traffic_cg.set_inst_name ("rx_traffic_cg");
-    rx_protocol_cg = new();    
+    rx_protocol_cg = new();
     rx_protocol_cg.set_inst_name ("rx_protocol_cg");
-  endfunction: new
+  endfunction : new
 
   // Additional class methods
   extern virtual function void perform_coverage();
   extern virtual task start_synchronizer(ref bit serial_d1, ref bit serial_b);
   extern virtual function void report_phase(uvm_phase phase);
 
-endclass: uart_rx_monitor
+endclass : uart_rx_monitor
 
 task uart_rx_monitor::start_synchronizer(ref bit serial_d1, ref bit serial_b);
   super.start_synchronizer(serial_d1, serial_b);
