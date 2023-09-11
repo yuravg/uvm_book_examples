@@ -45,7 +45,6 @@ class apb_master_sequencer extends uvm_sequencer #(apb_transfer);
 
   // UVM build_phase
   virtual function void build_phase(uvm_phase phase);
-    super.build_phase(phase);
     if (cfg == null)
       if (!uvm_config_db #(apb_config)::get(this, "", "cfg", cfg))
         `uvm_warning("NOCONFIG", "apb_config not set for this component")
@@ -53,7 +52,6 @@ class apb_master_sequencer extends uvm_sequencer #(apb_transfer);
 
   // UVM connect_phase - gets the vif as a config property
   virtual function void connect_phase(uvm_phase phase);
-    super.connect_phase(phase);
     if (!uvm_config_db #(virtual apb_if)::get(this, "", "vif", vif))
       `uvm_error("NOVIF", {"virtual interface must be set for: ",get_full_name(),".vif"})
 

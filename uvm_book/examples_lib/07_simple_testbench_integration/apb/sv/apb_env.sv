@@ -71,7 +71,6 @@ endclass : apb_env
 
 // UVM build_phase
 function void apb_env::build_phase(uvm_phase phase);
-  super.build_phase(phase);
   // Create the APB UVC configuration class if it has not been set
   if (cfg == null) //begin
     if (!uvm_config_db #(apb_config)::get(this, "", "cfg", cfg)) begin
@@ -99,7 +98,6 @@ endfunction : build_phase
 
 // UVM connect_phase
 function void apb_env::connect_phase(uvm_phase phase);
-  super.connect_phase(phase);
   // Get the virtual interface if set via get_config
   if (!uvm_config_db #(virtual apb_if)::get(this, "", "vif", vif))
     `uvm_error("NOVIF",{"virtual interface must be set for: ",get_full_name(),".vif"})

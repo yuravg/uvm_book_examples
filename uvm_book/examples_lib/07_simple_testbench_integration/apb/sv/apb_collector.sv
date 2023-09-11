@@ -88,7 +88,6 @@ endclass : apb_collector
 
 // UVM build_phase
 function void apb_collector::build_phase(uvm_phase phase);
-  super.build_phase(phase);
   if (cfg == null)
     if (!uvm_config_db #(apb_config)::get(this, "", "cfg", cfg))
       `uvm_error("NOCONFIG", "apb_config not set for this component")
@@ -96,7 +95,6 @@ endfunction : build_phase
 
 // UVM connect_phase
 function void apb_collector::connect_phase(uvm_phase phase);
-  super.connect_phase(phase);
   if (!uvm_config_db #(virtual apb_if)::get(this, "", "vif", vif))
     `uvm_error("NOVIF", {"virtual interface must be set for: ", get_full_name(), ".vif"})
 endfunction : connect_phase
@@ -148,7 +146,6 @@ task apb_collector::peek(output apb_transfer trans);
 endtask : peek
 
 function void apb_collector::report_phase(uvm_phase phase);
-  super.report_phase(phase);
   `uvm_info("REPORT", $sformatf("APB collector collected %0d transfers", num_transactions), UVM_LOW);
 endfunction : report_phase
 

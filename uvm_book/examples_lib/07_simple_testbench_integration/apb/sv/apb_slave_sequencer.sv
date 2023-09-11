@@ -45,7 +45,6 @@ class apb_slave_sequencer extends uvm_sequencer #(apb_transfer);
   endfunction : new
 
   virtual function void build_phase(uvm_phase phase);
-    super.build_phase(phase);
     if (cfg == null)
       if (!uvm_config_db #(apb_slave_config)::get(this, "", "cfg", cfg))
         `uvm_error("NOCONFIG", "No configuration set")

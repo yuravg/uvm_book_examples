@@ -65,7 +65,6 @@ endclass : apb_slave_agent
 // UVM build_phase
 function void apb_slave_agent::build_phase(uvm_phase phase);
   uvm_object config_obj;
-  super.build_phase(phase);
   // Get the configuration information for this component
   if (cfg == null) begin
     if (!uvm_config_db #(apb_slave_config)::get(this, "", "cfg", cfg))

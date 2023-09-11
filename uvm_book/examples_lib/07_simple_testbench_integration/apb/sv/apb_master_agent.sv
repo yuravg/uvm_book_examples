@@ -57,7 +57,6 @@ endclass : apb_master_agent
 // UVM build_phase
 function void apb_master_agent::build_phase(uvm_phase phase);
   uvm_object config_obj;
-  super.build_phase(phase);
   if (cfg == null) begin
     if (!uvm_config_db #(apb_config)::get(this, "", "cfg", cfg))
       `uvm_warning("NOCONFIG",
@@ -76,7 +75,6 @@ endfunction : build_phase
 
 // UVM connect_phase
 function void apb_master_agent::connect_phase(uvm_phase phase);
-  super.connect_phase(phase);
   collector.item_collected_port.connect(monitor.coll_mon_port);
   monitor.addr_trans_port.connect(collector.addr_trans_export);
   if (is_active == UVM_ACTIVE) begin
