@@ -1,8 +1,6 @@
-//This is dummy DUT. 
+//This is dummy DUT.
 
-module dut_dummy( input clock, input reset, uart_if uart_if0);
+module dut_dummy(input clock, input reset, uart_if uart_if0);
 
 
-endmodule
-
- 
+endmodule : dut_dummy
